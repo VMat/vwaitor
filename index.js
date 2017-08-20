@@ -10,7 +10,7 @@ Schema = new mongoose.Schema({
   completed: Boolean
 });
 
-Todo = mongoose.model('Todo', Schema);
+Todo = mongoose.model('vwaitor', Schema);
 
 /*
  * I’m sharing my credential here.
