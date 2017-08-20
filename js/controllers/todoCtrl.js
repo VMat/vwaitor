@@ -66,7 +66,7 @@ angular.module('todomvc')
 			$scope.saveEvent = event;
 
 			if ($scope.reverted) {
-				// Todo edits were reverted-- don't save.
+				// Products edits were reverted-- don't save.
 				$scope.reverted = null;
 				return;
 			}

@@ -3,14 +3,15 @@ var app = express();
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
-// Mongoose Schema definition
-Schema = new mongoose.Schema({
-  id       : String, 
-  title    : String,
-  completed: Boolean
+// Mongoose productSchema definition
+productSchema = new mongoose.Schema({
+  uniqueCode       : Number,
+  categories    : [String],
+  description    : String,
+  branch: String
 });
 
-Todo = mongoose.model('admin', Schema, 'vwaitor');
+Products = mongoose.model('admin', productSchema, 'products');
 
 /*
  * I’m sharing my credential here.
@@ -37,13 +38,13 @@ app
 
   .get('/api/todos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
-    Todo.find( function ( err, todos ){
+    Products.find( function (err, todos ){
       res.json(200, todos);
     });
   })
 
   .post('/api/todos', function (req, res) {
-    var todo = new Todo( req.body );
+    var todo = new Products( req.body );
     todo.id = todo._id;
     // http://mongoosejs.com/docs/api.html#model_Model-save
     todo.save(function (err) {
@@ -53,21 +54,21 @@ app
 
   .del('/api/todos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-remove
-    Todo.remove({ completed: true }, function ( err ) {
+    Products.remove({ completed: true }, function (err ) {
       res.json(200, {msg: 'OK'});
     });
   })
 
   .get('/api/todos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Todo.findById( req.params.id, function ( err, todo ) {
+    Products.findByUniqueCode( req.params.id, function (err, todo ) {
       res.json(200, todo);
     });
   })
 
   .put('/api/todos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Todo.findById( req.params.id, function ( err, todo ) {
+    Products.findByUniqueCode( req.params.id, function (err, todo ) {
       todo.title = req.body.title;
       todo.completed = req.body.completed;
       // http://mongoosejs.com/docs/api.html#model_Model-save
@@ -79,7 +80,7 @@ app
 
   .del('/api/todos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
-    Todo.findById( req.params.id, function ( err, todo ) {
+    Products.findByUniqueCode( req.params.id, function (err, todo ) {
       // http://mongoosejs.com/docs/api.html#model_Model.remove
       todo.remove( function ( err, todo ){
         res.json(200, {msg: 'OK'});
