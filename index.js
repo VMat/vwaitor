@@ -8,7 +8,7 @@ Schema = new mongoose.Schema({
   id       : String, 
   title    : String,
   completed: Boolean
-}),
+});
 
 Todo = mongoose.model('Todo', Schema);
 
