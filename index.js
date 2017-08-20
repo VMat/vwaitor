@@ -11,7 +11,7 @@ productSchema = new mongoose.Schema({
   branch: String
 });
 
-Products = mongoose.model('admin', productSchema, 'products');
+Products = mongoose.model('admin', productSchema, 'Products');
 
 /*
  * I’m sharing my credential here.
