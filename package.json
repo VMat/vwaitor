@@ -20,12 +20,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/VMat/vwaitor-server"
+    "url": "git+https://github.com/VMat/vwaitor-server.git"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "license": ""
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VMat/vwaitor-server/issues"
+  },
+  "homepage": "https://github.com/VMat/vwaitor-server#readme",
+  "author": ""
 }
