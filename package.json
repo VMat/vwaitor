@@ -1,6 +1,6 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.2.6",
+  "name": "vwaitor-server",
+  "version": "0.0.1",
   "description": "A sample Node.js app using Express 4",
   "engines": {
     "node": "6.11.1"
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+    "url": "https://github.com/VMat/vwaitor-server"
   },
   "keywords": [
     "node",
     "heroku",
     "express"
   ],
-  "license": "MIT"
+  "license": ""
 }
