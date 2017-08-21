@@ -4,11 +4,30 @@ var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 
 // Mongoose productSchema definition
+// productSchema = new mongoose.Schema({
+//   uniqueCode       : Number,
+//   categories    : [String],
+//   description    : String,
+//   branch: String
+// });
+
 productSchema = new mongoose.Schema({
-  uniqueCode       : Number,
-  categories    : [String],
-  description    : String,
-  branch: String
+  uniqueCode: Number,
+  categories: [{
+    uniqueCode: Number,
+    name: String
+  }],
+  name: String,
+  img: [String],
+  description: String,
+  priceSince: Number,
+  variations: [{
+    variationId: Number,
+    variationName: String,
+    variationImg: [String],
+    variationDescription: String,
+    price: Number
+  }]
 });
 
 Products = mongoose.model('admin', productSchema, 'Products');
@@ -36,7 +55,7 @@ app
     res.json(200, {msg: 'OK' });
   })
 
-  .get('/api/todos', function (req, res) {
+  .get('/productos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
     Products.find( function (err, todos ){
       res.json(200, todos);
