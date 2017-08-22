@@ -8,13 +8,6 @@ var cors = require('cors');
 app.use(cors({origin: 'http://localhost:8000'}));
 
 // Mongoose productSchema definition
-// productSchema = new mongoose.Schema({
-//   uniqueCode       : Number,
-//   categories    : [String],
-//   description    : String,
-//   branch: String
-// });
-
 productSchema = new mongoose.Schema({
   uniqueCode: Number,
   categories: [{
@@ -36,15 +29,7 @@ productSchema = new mongoose.Schema({
 
 Products = mongoose.model('admin', productSchema, 'Products');
 
-/*
- * I’m sharing my credential here.
- * Feel free to use it while you’re learning.
- * After that, create and use your own credential.
- * Thanks.
- *
- * MONGOLAB_URI=mongodb://example:example@ds053312.mongolab.com:53312/todolist
- * 'mongodb://example:example@ds053312.mongolab.com:53312/todolist'
- */
+// connect with MONGOLAB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
     if (error) console.error(error);
     else console.log('mongo connected');
