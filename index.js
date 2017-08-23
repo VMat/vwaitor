@@ -30,11 +30,11 @@ productSchema = new mongoose.Schema({
 Products = mongoose.model('admin', productSchema, 'Products');
 
 requestSchema = new mongoose.Schema({
-  uniqueCode: "id",
+  uniqueCode: Number,
   person: {
-      personUniqueCode: "idPersona",
-      name: "nombrePersona",
-      documentNumber: "documento"
+      personUniqueCode: Number,
+      name: String,
+      documentNumber: Number
   },
   products: [{
     uniqueCode: Number, 
@@ -56,7 +56,7 @@ requestSchema = new mongoose.Schema({
     }], 
     amount: Number
   }],
-  total: "total"
+  total: Number
 });
 
 Requests = mongoose.model('admin', requestSchema, 'Requests');
