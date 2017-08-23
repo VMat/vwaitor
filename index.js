@@ -132,7 +132,7 @@ app
 
 // API REST PEDIDOS
 
-.get('/pedidos', function (req, res) {
+  .get('/pedidos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
     Requests.find( function (err, requests ){
       res.json(200, requests);
@@ -140,14 +140,44 @@ app
   })
 
   .post('/pedidos', function (req, res) {
+
+    var maxUniqueCode = 0;
+
+    Requests.find(
+      {}, // Filters
+      ['uniqueCode'], // Columns to Return
+      {
+        skip:0, // Starting Row
+        limit:1, // Ending Row
+        sort:{
+          uniqueCode: 1 //Sort by Date Added DESC
+        }
+      },
+      function(err,requests){
+          requests.map(function (request) {
+              maxUniqueCode = request.uniqueCode;
+          });
+      }
+    );
     var newRequest = new Requests( req.body );
-    newRequest.id = newRequest._id;
+    // newRequest.id = newRequest._id;
     // http://mongoosejs.com/docs/api.html#model_Model-save
+    newRequest.uniqueCode = maxUniqueCode + 1;
     newRequest.save(function (err) {
       res.json(200, newRequest);
     });
-  });
+  })
 
+  .put('/pedidos/:id', function (req, res) {
+      // http://mongoosejs.com/docs/api.html#model_Model.findById
+      Requests.findByUniqueCode( req.params.id, function (err, oldRequest ) {
+          oldRequest.products.push(req.body.products);
+          // http://mongoosejs.com/docs/api.html#model_Model-save
+          oldRequest.save( function ( err, updatedRequest ){
+              res.json(200, updatedRequest);
+          });
+      });
+  });
 
 app.set('port', (process.env.PORT || 5000));
 
