@@ -29,6 +29,38 @@ productSchema = new mongoose.Schema({
 
 Products = mongoose.model('admin', productSchema, 'Products');
 
+requestSchema = new mongoose.Schema({
+  uniqueCode: "id",
+  person: {
+      personUniqueCode: "idPersona",
+      name: "nombrePersona",
+      documentNumber: "documento"
+  },
+  products: [{
+    uniqueCode: Number, 
+    categories: [{
+      uniqueCode: Number,
+      name: String
+    }],
+    name: String,
+    img: [String], 
+    description: String, 
+    priceSince: Number,
+    variations: [{
+      variationId: Number, 
+      variationName: String, 
+      variationImg: [String], 
+      variationDescription: String, 
+      price: Number, 
+      amount: Number
+    }], 
+    amount: Number
+  }],
+  total: "total"
+});
+
+Requests = mongoose.model('admin', requestSchema, 'Requests');
+
 // connect with MONGOLAB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
     if (error) console.error(error);
@@ -44,6 +76,8 @@ app
     res.json(200, {msg: 'OK' });
   })
 
+  // API REST PRODUCTOS
+
   .get('/productos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-find
     Products.find( function (err, todos ){
@@ -51,7 +85,7 @@ app
     });
   })
 
-  .post('/api/todos', function (req, res) {
+  .post('/productos', function (req, res) {
     var todo = new Products( req.body );
     todo.id = todo._id;
     // http://mongoosejs.com/docs/api.html#model_Model-save
@@ -60,21 +94,21 @@ app
     });
   })
 
-  .del('/api/todos', function (req, res) {
+  .del('/productos', function (req, res) {
     // http://mongoosejs.com/docs/api.html#query_Query-remove
     Products.remove({ completed: true }, function (err ) {
       res.json(200, {msg: 'OK'});
     });
   })
 
-  .get('/api/todos/:id', function (req, res) {
+  .get('/productos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
     Products.findByUniqueCode( req.params.id, function (err, todo ) {
       res.json(200, todo);
     });
   })
 
-  .put('/api/todos/:id', function (req, res) {
+  .put('/productos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
     Products.findByUniqueCode( req.params.id, function (err, todo ) {
       todo.title = req.body.title;
@@ -86,7 +120,7 @@ app
     });
   })
 
-  .del('/api/todos/:id', function (req, res) {
+  .del('/productos/:id', function (req, res) {
     // http://mongoosejs.com/docs/api.html#model_Model.findById
     Products.findByUniqueCode( req.params.id, function (err, todo ) {
       // http://mongoosejs.com/docs/api.html#model_Model.remove
@@ -94,7 +128,26 @@ app
         res.json(200, {msg: 'OK'});
       });
     });
-  });
+  })
+
+// API REST PEDIDOS
+
+.get('/pedidos', function (req, res) {
+    // http://mongoosejs.com/docs/api.html#query_Query-find
+    Requests.find( function (err, requests ){
+      res.json(200, requests);
+    });
+  })
+
+  .post('/pedidos', function (req, res) {
+    var newRequest = new Requests( req.body );
+    newRequest.id = newRequest._id;
+    // http://mongoosejs.com/docs/api.html#model_Model-save
+    newRequest.save(function (err) {
+      res.json(200, newRequest);
+    });
+  })
+
 
 app.set('port', (process.env.PORT || 5000));
 
