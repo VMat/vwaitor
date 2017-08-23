@@ -59,7 +59,7 @@ requestSchema = new mongoose.Schema({
   total: Number
 });
 
-/*Requests = mongoose.model('admin', requestSchema, 'Requests');*/
+Requests = mongoose.model('admin1', requestSchema, 'Requests');
 
 // connect with MONGOLAB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
