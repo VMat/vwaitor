@@ -29,7 +29,7 @@ productSchema = new mongoose.Schema({
 
 Products = mongoose.model('admin', productSchema, 'Products');
 
-requestSchema = new mongoose.Schema({
+/*requestSchema = new mongoose.Schema({
   uniqueCode: Number,
   person: {
       personUniqueCode: Number,
@@ -59,7 +59,7 @@ requestSchema = new mongoose.Schema({
   total: Number
 });
 
-Requests = mongoose.model('admin', requestSchema, 'Requests');
+Requests = mongoose.model('admin', requestSchema, 'Requests');*/
 
 // connect with MONGOLAB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
