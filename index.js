@@ -146,7 +146,7 @@ app
     newRequest.save(function (err) {
       res.json(200, newRequest);
     });
-  })
+  });
 
 
 app.set('port', (process.env.PORT || 5000));
