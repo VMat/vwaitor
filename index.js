@@ -61,6 +61,42 @@ requestSchema = new mongoose.Schema({
 
 Requests = mongoose.model('admin1', requestSchema, 'Requests');
 
+accountSchema = new mongoose.Schema({
+  uniqueCode: Number,
+  requests:[{
+    uniqueCode: Number,
+    person: {
+        personUniqueCode: Number,
+        name: String,
+        documentNumber: Number
+    },
+    products: [{
+      uniqueCode: Number, 
+      categories: [{
+        uniqueCode: Number,
+        name: String
+      }],
+      name: String,
+      img: [String], 
+      description: String, 
+      priceSince: Number,
+      variations: [{
+        variationId: Number, 
+        variationName: String, 
+        variationImg: [String], 
+        variationDescription: String, 
+        price: Number, 
+        amount: Number
+      }], 
+      amount: Number
+    }],
+    total: Number
+  }]
+});
+
+Account = mongoose.model('admin2', accountSchema, 'Accounts');
+
+
 // connect with MONGOLAB
 mongoose.connect(process.env.MONGOLAB_URI, function (error) {
     if (error) console.error(error);
@@ -130,6 +166,34 @@ app
     });
   })
 
+// API REST CUENTAS
+
+  .post('/cuentas', function (req, res) {
+  
+      var maxUniqueCode = 0;
+  
+      Accounts.find({}).
+      //where('name.last').equals('Ghost').
+      //where('age').gt(17).lt(66).
+      //where('likes').in(['vaporizing', 'talking']).
+      limit(1).
+      sort('-uniqueCode').
+      select('uniqueCode').
+      exec(function(err,accounts){
+        accounts.map(function (account) {
+          maxUniqueCode = account.uniqueCode;
+        });
+  
+        var newAccount = new Accounts(req.body);
+        // newRequest.id = newRequest._id;
+        // http://mongoosejs.com/docs/api.html#model_Model-save
+        newAccount.uniqueCode = maxUniqueCode + 1;
+        newAccount.save(function (err) {
+          res.json(200, newAccount);
+        });
+      });
+    })
+
 // API REST PEDIDOS
 
   .get('/pedidos', function (req, res) {
@@ -139,20 +203,11 @@ app
     });
   })
 
-   /* .post('/pedidos', function (req, res) {
-        var todo = new Requests( req.body );
-        todo.id = todo._id;
-        // http://mongoosejs.com/docs/api.html#model_Model-save
-        todo.save(function (err) {
-            res.json(200, todo);
-        });
-    })*/
-
-   .post('/pedidos', function (req, res) {
+  .post('/pedidos', function (req, res) {
   
-      var maxUniqueCode = 0;
+      var maxUniqueCode = 0;    
   
-      Requests.find({}).
+    Requests.find({}).
       //where('name.last').equals('Ghost').
       //where('age').gt(17).lt(66).
       //where('likes').in(['vaporizing', 'talking']).
@@ -169,6 +224,16 @@ app
         // http://mongoosejs.com/docs/api.html#model_Model-save
         newRequest.uniqueCode = maxUniqueCode + 1;
         newRequest.save(function (err) {
+          Accounts.find( function (err, accounts){
+            if(accounts.length>0){
+              var newAccount = accounts[0].requests.push(newRequest);
+            }
+            else{
+              var newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+            }
+            newAccount.save(function (err) {
+             }
+          });
           res.json(200, newRequest);
         });
       });
