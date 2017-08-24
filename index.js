@@ -150,9 +150,31 @@ app
 
    .post('/pedidos', function (req, res) {
   
-     var maxUniqueCode = 0;
+      var maxUniqueCode = 0;
   
-     Requests.find(
+      Requests.find({}).
+      //where('name.last').equals('Ghost').
+      //where('age').gt(17).lt(66).
+      //where('likes').in(['vaporizing', 'talking']).
+      limit(1).
+      sort('-uniqueCode').
+      select('uniqueCode').
+      exec(function(err,requests){
+        requests.map(function (request) {
+          maxUniqueCode = request.uniqueCode;
+        });
+  
+        var newRequest = new Requests(req.body);
+        // newRequest.id = newRequest._id;
+        // http://mongoosejs.com/docs/api.html#model_Model-save
+        newRequest.uniqueCode = maxUniqueCode + 1;
+        newRequest.save(function (err) {
+          res.json(200, newRequest);
+        });
+      });
+    })
+  
+     /*Requests.find(
        {}, // Filters
        ['uniqueCode'], // Columns to Return
        {
@@ -176,7 +198,7 @@ app
          });
        }
      );
-   })
+   })*/
 
   .put('/pedidos/:id', function (req, res) {
       // http://mongoosejs.com/docs/api.html#model_Model.findById
