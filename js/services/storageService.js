@@ -67,5 +67,3 @@ var storageService = (function(){
   return oStorageService;
 
 })();
-
-return new storageService();
