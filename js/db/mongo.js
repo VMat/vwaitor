@@ -38,7 +38,7 @@ var db = (function(){
       });
     },
     
-    updateProduct: funcion(req, res){
+    updateProduct: function(req, res){
       Products.findByUniqueCode(req.params.id, function (err, product){
         product.title = req.body.title;
         product.completed = req.body.completed;
