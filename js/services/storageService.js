@@ -68,5 +68,5 @@ var storageService = (function(){
 
 })();
 
-export module storageService;
+export { new storageService() };
 
