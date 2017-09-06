@@ -5,6 +5,10 @@ var cors = require('cors');
 
 var storageService = require('./js/services/storageService.js');
 
+var productApi = require('./js/rest/productApi');
+var accountApi = require('./js/rest/accountApi');
+var requestApi = require('./js/rest/requestApi');
+
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:8000'}));
 
@@ -21,9 +25,13 @@ app
 
   // API REST PRODUCTOS
   
-  .get('/productos', function (req, res){
+  .use('/productos', productApi)
+  .use('/cuentas', accountApi)
+  .use('/pedidos', requestApi);
+
+  /*.get('/productos', function (req, res){
     storageService.getProducts(req, res);
-  })
+  });
 
   .get('/productos/:id', function (req, res){
     storageService.getProduct(req, res);
@@ -43,12 +51,12 @@ app
 
   .del('/productos/:id', function (req, res){
     storageService.deleteProduct(req, res);
-  })
+  })*/
 
 
 // API REST CUENTAS
 
-  .get('/cuentas', function(req, res){
+ /* .get('/cuentas', function(req, res){
     storageService.getAccounts(req, res);
   })
 
@@ -62,11 +70,11 @@ app
 
   .put('/cuentas/:id', function (req, res){
     storageService.updateAccount(req, res);
-  })
+  })*/
 
 // API REST PEDIDOS
 
-  .get('/pedidos', function (req, res){
+  /*.get('/pedidos', function (req, res){
     storageService.getRequests(req, res);
   })
 
@@ -76,7 +84,7 @@ app
       
   .put('/pedidos/:id', function (req, res) {
     storageService.updateRequest(req, res);
-  });
+  });*/
 
 app.set('port', (process.env.PORT || 5000));
 
