@@ -63,6 +63,8 @@ var storageService = (function(){
     },
     
   };
+  
+  return oStorageService;
 
 })();
 
