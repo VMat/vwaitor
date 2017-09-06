@@ -1,14 +1,15 @@
 var router = require('express').Router();
+var storageService = require('./js/services/storageService.js');
 
-router.get('/pedidos', function (req, res){
+router.get('/', function (req, res){
   storageService.getRequests(req, res);
 });
 
-router.post('/pedidos', function (req, res){
+router.post('/', function (req, res){
   storageService.createRequest(req, res)
 });
       
-router.put('/pedidos/:id', function (req, res) {
+router.put('/:id', function (req, res) {
   storageService.updateRequest(req, res);
 });
 
