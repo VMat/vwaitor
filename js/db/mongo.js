@@ -164,5 +164,5 @@ var db = (function(){
   return oDb;
 })();
 
-export module db;
+return new db();
 
