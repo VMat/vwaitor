@@ -68,5 +68,4 @@ var storageService = (function(){
 
 })();
 
-export { new storageService() };
-
+return new storageService();
