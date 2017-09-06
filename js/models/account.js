@@ -26,4 +26,4 @@ accountSchema = new mongoose.Schema({
 
 Account = mongoose.model('admin2', accountSchema, 'Accounts');
 
-return Account;
+module.exports = Account;
