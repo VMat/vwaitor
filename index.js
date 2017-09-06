@@ -4,87 +4,16 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var storageService = require('./js/services/storageService.js');
-
-var productApi = require('./js/rest/productApi');
-var accountApi = require('./js/rest/accountApi');
-var requestApi = require('./js/rest/requestApi');
+var routeServer = require('./js/server/routeServer');
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:8000'}));
 
 storageService.connect();
 
-app
-  // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
-  .use(bodyParser.json()) // support json encoded bodies
-  .use(bodyParser.urlencoded({ extended: true })) // support encoded bodies
-
-  .get('/api', function (req, res){
-    res.json(200, {msg: 'OK' });
-  })
-
-  // API REST PRODUCTOS
-  
-  .use('/productos', productApi)
-  .use('/cuentas', accountApi)
-  .use('/pedidos', requestApi);
-
-  /*.get('/productos', function (req, res){
-    storageService.getProducts(req, res);
-  });
-
-  .get('/productos/:id', function (req, res){
-    storageService.getProduct(req, res);
-  })
-
-  .post('/productos', function (req, res){
-    storageService.createProduct(req, res);
-  })
-
-  .put('/productos/:id', function (req, res){
-    storageService.updateProduct(req,res);
-  })
-
-  .del('/productos', function (req, res){
-    storageService.deleteProducts(req ,res);
-  })
-
-  .del('/productos/:id', function (req, res){
-    storageService.deleteProduct(req, res);
-  })*/
-
-
-// API REST CUENTAS
-
- /* .get('/cuentas', function(req, res){
-    storageService.getAccounts(req, res);
-  })
-
-  .get('/cuentas/:id', function(req, res){
-    storageService.getAccount(req, res);
-  })
-
-  .post('/cuentas', function (req, res){
-    storageService.createAccount(req, res);
-  })
-
-  .put('/cuentas/:id', function (req, res){
-    storageService.updateAccount(req, res);
-  })*/
-
-// API REST PEDIDOS
-
-  /*.get('/pedidos', function (req, res){
-    storageService.getRequests(req, res);
-  })
-
-  .post('/pedidos', function (req, res){
-    storageService.createRequest(req, res)
-  })
-      
-  .put('/pedidos/:id', function (req, res) {
-    storageService.updateRequest(req, res);
-  });*/
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use('/api', routeServer);
 
 app.set('port', (process.env.PORT || 5000));
 
