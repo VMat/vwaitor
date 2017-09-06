@@ -1,4 +1,4 @@
-var db = require('./db/mongo');
+var db = require('../db/mongo');
 
 var storageService = (function(){
 
