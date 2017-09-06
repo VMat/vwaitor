@@ -163,6 +163,3 @@ var db = (function(){
   
   return oDb;
 })();
-
-return new db();
-
