@@ -20,4 +20,6 @@ productSchema = new mongoose.Schema({
   }]
 });
 
-export module productSchema;
+Products = mongoose.model('admin', productSchema, 'Products');
+
+export module Products;
