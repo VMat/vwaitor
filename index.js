@@ -3,10 +3,12 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var storageService = require('./js/service/storageService');
+var storageService = require('./js/services/storageService');
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:8000'}));
+
+storageService.connect();
 
 app
   // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
@@ -20,25 +22,23 @@ app
   // API REST PRODUCTOS
   
   .get('/productos', function (req, res){
-  
     storageService.getProducts(req, res);
-  })
-
-  .post('/productos', function (req, res){
-  
-    storageService.createProduct(req, res);
-  })
-
-  .del('/productos', function (req, res){
-    storageService.deleteProducts(req ,res);
   })
 
   .get('/productos/:id', function (req, res){
     storageService.getProduct(req, res);
   })
 
+  .post('/productos', function (req, res){
+    storageService.createProduct(req, res);
+  })
+
   .put('/productos/:id', function (req, res){
     storageService.updateProduct(req,res);
+  })
+
+  .del('/productos', function (req, res){
+    storageService.deleteProducts(req ,res);
   })
 
   .del('/productos/:id', function (req, res){
