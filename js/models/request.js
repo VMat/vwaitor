@@ -32,5 +32,4 @@ requestSchema = new mongoose.Schema({
 
 Requests = mongoose.model('admin1', requestSchema, 'Requests');
 
-return Requests;
-
+module.exports = Requests;
