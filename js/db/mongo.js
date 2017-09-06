@@ -163,3 +163,7 @@ var db = (function(){
   
   return oDb;
 })();
+
+var oDb = new db();
+
+module.exports = oDb;
