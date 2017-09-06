@@ -1,5 +1,4 @@
-var express = require('express');
-var router = express.router();
+var router = require('express').Router();
 
 router.get('/cuentas', function(req, res){
     storageService.getAccounts(req, res);
