@@ -1,0 +1,28 @@
+var express = require('express');
+var router = express.router();
+  
+router.get('/productos', function (req, res){
+  storageService.getProducts(req, res);
+});
+
+router.get('/productos/:id', function (req, res){
+  storageService.getProduct(req, res);
+});
+
+router.post('/productos', function (req, res){
+  storageService.createProduct(req, res);
+});
+
+router.put('/productos/:id', function (req, res){
+  storageService.updateProduct(req,res);
+});
+
+router.del('/productos', function (req, res){
+  storageService.deleteProducts(req ,res);
+});
+
+router.del('/productos/:id', function (req, res){
+  storageService.deleteProduct(req, res);
+});
+
+module.exports = router;
