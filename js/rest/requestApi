@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var storageService = require('./js/services/storageService.js');
+var storageService = require('../services/storageService.js');
 
 router.get('/', function (req, res){
   storageService.getRequests(req, res);
