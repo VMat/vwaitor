@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var Products = require('./js/models/product');
-var Requests = require('./js/models/request');
-var Accounts = require('./js/models/account');
+var Products = require('../models/product');
+var Requests = require('../models/request');
+var Accounts = require('../models/account');
 
 var db = (function(){
 
