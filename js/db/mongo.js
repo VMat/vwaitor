@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
-var products = require('./js/models/product');
-var requests = require('./js/models/request');
-var accounts = require('./js/models/account');
+var Products = require('./js/models/product');
+var Requests = require('./js/models/request');
+var Accounts = require('./js/models/account');
 
 var db = (function(){
 
@@ -92,14 +92,14 @@ var db = (function(){
         exec(function(err,accounts){
           accounts.map(function (account) {
             maxUniqueCode = account.uniqueCode;
+          });
         });
-
+      
         var newAccount = new Accounts(req.body);
         newAccount.uniqueCode = maxUniqueCode + 1;
         newAccount.save(function (err) {
           res.json(200, newAccount);
         });
-      });
     },
     
     updateAccount: function(req, res){
@@ -135,8 +135,8 @@ var db = (function(){
 
       var newRequest = new Requests(req.body);
       newRequest.uniqueCode = maxUniqueCode + 1;
-      newRequest.save(function (err) {
-        Accounts.find(function (err,accounts){
+      newRequest.save(function(err){
+        Accounts.find(function(err, accounts){
           if(accounts.length>0){
             var newAccount = accounts[0].requests.push(newRequest);
           }
@@ -144,14 +144,14 @@ var db = (function(){
             var newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
           }
           newAccount.save(function(err){
-          }
+          })
         });
         res.json(200, newRequest);
       });
     },
     
     updateRequest: function(req, res){
-      Requests.findByUniqueCode(req.params.id, function(err,oldRequest){
+      Requests.findByUniqueCode(req.params.id, function(err, oldRequest){
           oldRequest.products.push(req.body.products);
           oldRequest.save(function(err, updatedRequest){
               res.json(200, updatedRequest);
