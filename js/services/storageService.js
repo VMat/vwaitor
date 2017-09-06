@@ -67,3 +67,7 @@ var storageService = (function(){
   return oStorageService;
 
 })();
+
+var oStorageServiceb = new storageService();
+
+module.exports = oStorageServiceb;
