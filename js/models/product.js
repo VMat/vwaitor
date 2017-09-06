@@ -22,4 +22,4 @@ productSchema = new mongoose.Schema({
 
 Products = mongoose.model('admin', productSchema, 'Products');
 
-return Products;
+module.exports = Products;
