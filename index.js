@@ -3,12 +3,12 @@ var app = express();
 var bodyParser = require('body-parser');
 var cors = require('cors');
 
-var storageService = require('./js/services/storageService');
+var storageService = require('./js/services/storageService.js');
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:8000'}));
 
-storageService.connect();
+/*storageService.connect();*/
 
 app
   // https://scotch.io/tutorials/use-expressjs-to-get-url-and-post-parameters
