@@ -1,0 +1,17 @@
+var express = require('express');
+var router = express.router();
+
+
+router.get('/pedidos', function (req, res){
+  storageService.getRequests(req, res);
+});
+
+router.post('/pedidos', function (req, res){
+  storageService.createRequest(req, res)
+});
+      
+router.put('/pedidos/:id', function (req, res) {
+  storageService.updateRequest(req, res);
+});
+
+module.exports = router;
