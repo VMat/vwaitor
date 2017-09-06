@@ -1,6 +1,4 @@
-var express = require('express');
-var router = express.router();
-
+var router = require('express').Router();
 
 router.get('/pedidos', function (req, res){
   storageService.getRequests(req, res);
