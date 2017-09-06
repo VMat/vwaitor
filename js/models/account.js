@@ -24,4 +24,6 @@ accountSchema = new mongoose.Schema({
     paymentMethod: String
 });
 
-export module accountSchema;
+Account = mongoose.model('admin2', accountSchema, 'Accounts');
+
+export module Account;
