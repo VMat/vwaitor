@@ -1,19 +1,19 @@
 var router = require('express').Router();
-var storageService = require('./js/services/storageService.js');
+var storageService = require('../services/storageService.js');
 
-router.get('/cuentas', function(req, res){
+router.get('/', function(req, res){
     storageService.getAccounts(req, res);
 });
 
-router.get('/cuentas/:id', function(req, res){
+router.get('/:id', function(req, res){
   storageService.getAccount(req, res);
 });
 
-router.post('/cuentas', function (req, res){
+router.post('/', function (req, res){
   storageService.createAccount(req, res);
 });
 
-router.put('/cuentas/:id', function (req, res){
+router.put('/:id', function (req, res){
   storageService.updateAccount(req, res);
 });
 
