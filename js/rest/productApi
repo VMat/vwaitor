@@ -16,11 +16,11 @@ router.put('/productos/:id', function (req, res){
   storageService.updateProduct(req,res);
 });
 
-router.del('/productos', function (req, res){
+router.delete('/productos', function (req, res){
   storageService.deleteProducts(req ,res);
 });
 
-router.del('/productos/:id', function (req, res){
+router.delete('/productos/:id', function (req, res){
   storageService.deleteProduct(req, res);
 });
 
