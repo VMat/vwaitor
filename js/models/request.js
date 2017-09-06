@@ -30,5 +30,7 @@ requestSchema = new mongoose.Schema({
   total: Number
 });
 
-export module requestSchema;
+Requests = mongoose.model('admin1', requestSchema, 'Requests');
+
+export module Requests;
 
