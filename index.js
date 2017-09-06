@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 
 var storageService = require('./js/services/storageService.js');
-var routeServer = require('./js/server/routeServer');
+var routeServer = require('./js/router/routeServer');
 
 // use it before all route definitions
 app.use(cors({origin: 'http://localhost:8000'}));
