@@ -5,7 +5,7 @@ var Accounts = require('../models/account');
 
 var db = (function(){
 
-  function oDb(){};
+  function oDb(){}
   
   oDb.prototype = {
   
@@ -28,6 +28,14 @@ var db = (function(){
     getProduct: function(req, res){
       Products.findByUniqueCode(req.params.id, function (err, product){
         res.json(200, product);
+      });
+
+      Products.find({"uniqueCode": req.params.id}).
+      exec(function(err,products){
+        if (err){
+          res.status(500).send(err);
+        }
+        res.status(200).json(products);
       });
     },
         
@@ -137,11 +145,12 @@ var db = (function(){
       newRequest.uniqueCode = maxUniqueCode + 1;
       newRequest.save(function(err){
         Accounts.find(function(err, accounts){
+          var newAccount = null;
           if(accounts.length>0){
-            var newAccount = accounts[0].requests.push(newRequest);
+            newAccount = accounts[0].requests.push(newRequest);
           }
           else{
-            var newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+            newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
           }
           newAccount.save(function(err){
           })
@@ -159,7 +168,7 @@ var db = (function(){
       });
     }
     
-  }
+  };
   
   return oDb;
 })();
