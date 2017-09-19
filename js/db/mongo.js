@@ -26,9 +26,6 @@ var db = (function(){
     },
     
     getProduct: function(req, res){
-      Products.findByUniqueCode(req.params.id, function (err, product){
-        res.json(200, product);
-      });
 
       Products.find({"uniqueCode": req.params.id}).
       exec(function(err,products){
