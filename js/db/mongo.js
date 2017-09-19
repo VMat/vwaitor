@@ -105,7 +105,7 @@ var db = (function(){
               res.status(500).send(err);
             }
             else{
-              res.status.(200)(accounts)
+              res.status.(200).json(accounts)
             }
       });
     },
