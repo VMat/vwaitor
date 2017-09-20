@@ -359,19 +359,24 @@ let db = (function(){
     updateRequest: function(req, res){
 
       Requests.find({"uniqueCode": req.params.id}).
-        exec((err,oldRequest)=>{
+        exec((err,requests)=>{
           if(err){
             res.status(500).send(err);
           }
           else{
-            oldRequest.save((err, updatedRequest)=>{
+            if(requests.length > 0){
+              requests[0].save((err, updatedRequest)=>{
                 if(err){
                     res.status(500).send(err);
                 }
                 else{
                     res.status(500).json(updatedRequest);
                 }
-            });
+              });
+            }
+            else{
+              res.status(200).json(requests)
+            }
           }
       });
     },
