@@ -370,7 +370,7 @@ let db = (function(){
                     res.status(500).send(err);
                 }
                 else{
-                    res.status(500).json(updatedRequest);
+                    res.status(200).json(updatedRequest);
                 }
               });
             }
