@@ -1,9 +1,9 @@
-var mongoose = require('mongoose');
-var Products = require('../models/product');
-var Requests = require('../models/request');
-var Accounts = require('../models/account');
+let mongoose = require('mongoose');
+let Products = require('../models/product');
+let Requests = require('../models/request');
+let Accounts = require('../models/account');
 
-var db = (function(){
+let db = (function(){
 
   function oDb(){}
   
@@ -20,15 +20,15 @@ var db = (function(){
     },
     
     getProducts: function(req, res){
-      Products.find( function (err, todos){
-        res.json(200, todos);
+      Products.find( function (err, products){
+        res.status(200).json(products);
       });
     },
     
     getProduct: function(req, res){
 
       Products.find({"uniqueCode": req.params.id}).
-      exec(function(err,products){
+      exec((err,products)=>{
         if (err){
           res.status(500).send(err);
         }
@@ -37,16 +37,21 @@ var db = (function(){
     },
         
     createProduct: function(req, res){
-      var product = new Products( req.body );
-      product.save(function (err) {
-        res.json(200, todo);
+      let product = new Products( req.body );
+      product.save((err,newProduct)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            res.json(200, newProduct);
+        }
       });
     },
     
     updateProduct: function(req, res){
 
       Products.find({"uniqueCode": req.params.id}).
-        exec(function(err,products){
+        exec((err,products)=>{
           if(err){
             res.status(500).send(err);
           }
@@ -54,8 +59,13 @@ var db = (function(){
             if(products.length > 0){
               products[0].title = req.body.title;
               products[0].completed = req.body.completed;
-              products[0].save(function(err, updatedProduct){
-                res.status(200).json(updatedProduct);
+              products[0].save((err, updatedProduct)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(updatedProduct);
+                  }
               });
             }
             else{
@@ -66,22 +76,32 @@ var db = (function(){
     },
     
     deleteProducts: function(req, res){
-      Products.remove({ completed: true }, function (err ) {
-        res.json(200, {msg: 'OK'});
+      Products.remove((err)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              res.status(200).json({msg: 'OK'});
+          }
       });
     },
     
     deleteProduct: function(req, res){
 
       Products.find({"uniqueCode": req.params.id}).
-        exec(function(err,products){
+        exec((err,products)=>{
           if(err){
             res.status(500).send(err);
           }
           else{
             if(products.length > 0){
-              products[0].remove(function(err, deletedProduct){
-                res.status(200).json(deletedProduct);
+              products[0].remove((err, deletedProduct)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(deletedProduct);
+                  }
               });
             }
             else{
@@ -92,15 +112,20 @@ var db = (function(){
     },
     
     getAccounts: function(req, res){
-      Accounts.find(function (err, accounts) {
-        res.json(200, accounts);
+      Accounts.find((err, accounts)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              res.status(200).json(accounts);
+          }
       });
     },
     
     getAccount: function(req, res){
 
       Accounts.find({"uniqueCode": req.params.id}).
-          exec(function(err,accounts){
+          exec((err,accounts)=>{
             if(err){
               res.status(500).send(err);
             }
@@ -111,7 +136,7 @@ var db = (function(){
     },
     
     createAccount: function(req, res){
-      var maxUniqueCode = 0;
+      let maxUniqueCode = 0;
   
       Accounts.find({}).
         //where('name.last').equals('Ghost').
@@ -120,32 +145,47 @@ var db = (function(){
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
-        exec(function(err,accounts){
-          accounts.map(function (account) {
-            maxUniqueCode = account.uniqueCode;
-          });
+        exec((err,accounts)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              accounts.map(function (account) {
+                  maxUniqueCode = account.uniqueCode;
+              });
+          }
         });
       
-        var newAccount = new Accounts(req.body);
+        let newAccount = new Accounts(req.body);
         newAccount.uniqueCode = maxUniqueCode + 1;
         newAccount.save(function (err) {
-          res.json(200, newAccount);
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                res.json(200, newAccount);
+            }
         });
     },
     
     updateAccount: function(req, res){
-      var newRequest = new Accounts(req.body);
+      let newRequest = new Accounts(req.body);
 
       Accounts.find({"uniqueCode": req.params.id}).
-        exec(function(err,accounts){
+        exec((err,accounts)=>{
           if(err){
             res.status(500).send(err);
           }
           else{
             if(accounts.length > 0){
               accounts[0].products.concat(req.body);
-              accounts[0].save(function(err, updatedAccount){
-                res.status(200).json(updatedAccount);
+              accounts[0].save((err, updatedAccount)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(updatedAccount);
+                  }
               })
             }
             else{
@@ -156,39 +196,58 @@ var db = (function(){
     },
     
     getRequests: function(req, res){
-      Requests.find(function (err, requests){
-        res.json(200, requests);
+      Requests.find((err, requests)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              res.status(200).json(requests);
+          }
       });
     },
     
     createRequest: function(req, res){
     
-      var maxUniqueCode = 0;    
+      let maxUniqueCode = 0;
   
       Requests.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
-        exec(function(err,requests){
-          requests.map(function (request) {
-            maxUniqueCode = request.uniqueCode;
-          });
-        });
-
-      var newRequest = new Requests(req.body);
-      newRequest.uniqueCode = maxUniqueCode + 1;
-      newRequest.save(function(err){
-        Accounts.find(function(err, accounts){
-          var newAccount = null;
-          if(accounts.length>0){
-            newAccount = accounts[0].requests.push(newRequest);
+        exec((err,requests)=>{
+          if(err){
+            res.status(500).send(err);
           }
           else{
-            newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+            requests.map((request)=>{
+                maxUniqueCode = request.uniqueCode;
+            });
           }
-          newAccount.save(function(err){
-          })
         });
+
+      let newRequest = new Requests(req.body);
+      newRequest.uniqueCode = maxUniqueCode + 1;
+      newRequest.save((err)=>{
+        if(err){
+            res.status(500).send(err);
+        }
+        else{
+            Accounts.find((err, accounts)=>{
+                let newAccount = null;
+                if(accounts.length>0){
+                    newAccount = accounts[0].requests.push(newRequest);
+                }
+                else{
+                    newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+                }
+                newAccount.save((err)=>{
+                    if(err){
+                        res.status(500).send(err);
+                    }
+                })
+            })
+        }
+
         res.json(200, newRequest);
       });
     },
@@ -196,14 +255,19 @@ var db = (function(){
     updateRequest: function(req, res){
 
       Requests.find({"uniqueCode": req.params.id}).
-        exec(function(err,oldRequest){
+        exec((err,oldRequest)=>{
           if(err){
             res.status(500).send(err);
           }
           else{
             oldRequest.products.push(req.body.products);
-            oldRequest.save(function(err, updatedRequest){
-              res.status(500).json(updatedRequest);
+            oldRequest.save((err, updatedRequest)=>{
+                if(err){
+                    res.status(500).send(err);
+                }
+                else{
+                    res.status(500).json(updatedRequest);
+                }
             });
           }
       });
@@ -214,6 +278,6 @@ var db = (function(){
   return oDb;
 })();
 
-var oDb = new db();
+let oDb = new db();
 
 module.exports = oDb;
