@@ -154,6 +154,7 @@ let db = (function(){
     },
     
     createAccount: function(req, res){
+      sessionStorage.setItem("req1", JSON.stringify(req));
       let maxUniqueCode = 0;
   
       Accounts.find({}).
@@ -173,6 +174,7 @@ let db = (function(){
               });
           }
         }).then(()=>{
+          sessionStorage.setItem("req2", JSON.stringify(req));
           let newAccount = new Accounts(req.body);
           newAccount.uniqueCode = maxUniqueCode + 1;
           newAccount.save(function (err) {
