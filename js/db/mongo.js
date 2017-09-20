@@ -327,7 +327,7 @@ let db = (function(){
                 maxUniqueCode = request.uniqueCode;
             });
           }
-        }).then()=>{
+        }).then(()=>{
           let newRequest = new Requests(req.body);
           newRequest.uniqueCode = maxUniqueCode + 1;
           newRequest.save((err)=>{
@@ -347,13 +347,14 @@ let db = (function(){
                         if(err){
                             res.status(500).send(err);
                         }
+                      else{
+                        res.json(200, newRequest);
+                      }
                     })
                 })
             }
-
-            res.json(200, newRequest);
           });
-        }
+        });
     },
     
     updateRequest: function(req, res){
