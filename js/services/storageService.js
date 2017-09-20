@@ -46,6 +46,10 @@ var storageService = (function(){
       db.createAccount(req, res);
     },
     
+    patchAccount: function(req, res){
+      db.patchAccount(req, res);
+    },
+    
     updateAccount: function(req, res){
       db.updateAccount(req, res);
     },
