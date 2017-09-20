@@ -38,7 +38,7 @@ var storageService = (function(){
       db.getAccount(req, res);
     },
    
-    getAccounts: function(req, res){
+    getAccount: function(req, res){
       db.getAccount(req, res);
     },
     
@@ -50,7 +50,19 @@ var storageService = (function(){
       db.updateAccount(req, res);
     },
     
+    deleteAccounts: function(req, res){
+      db.deleteAccounts(req, res);
+    },
+    
+    deleteAccount: function(req, res){
+      db.deleteAccount(req, res);
+    },
+    
     getRequests: function(req, res){
+      db.getRequests(req, res);
+    },
+    
+    getRequest: function(req, res){
       db.getRequests(req, res);
     },
     
@@ -61,6 +73,14 @@ var storageService = (function(){
     updateRequest: function(req, res){
       db.updateRequest(req, res);
     },
+    
+    deleteRequests: function(req, res){
+      db.deleteRequests(req, res);
+    },
+    
+    deleteRequest: function(req, res){
+      db.deleteRequest(req, res);
+    }
     
   };
   
