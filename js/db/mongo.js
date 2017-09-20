@@ -215,6 +215,42 @@ let db = (function(){
       });
     },
     
+    deleteAccounts: function(req, res){
+      Accounts.remove((err)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              res.status(200).json({msg: 'OK'});
+          }
+      });
+    },
+    
+    deleteAccount: function(req, res){
+
+      Accounts.find({"uniqueCode": req.params.id}).
+        exec((err,accounts)=>{
+          if(err){
+            res.status(500).send(err);
+          }
+          else{
+            if(accounts.length > 0){
+              accounts[0].remove((err, deletedAccount)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(deletedAccount);
+                  }
+              });
+            }
+            else{
+              res.status(200).json(accounts);
+            }
+          }
+      });
+    },   
+    
     getRequests: function(req, res){
       Requests.find((err, requests)=>{
           if(err){
