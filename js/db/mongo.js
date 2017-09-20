@@ -57,8 +57,9 @@ let db = (function(){
           }
           else{
             if(products.length > 0){
-              products[0].title = req.body.title;
-              products[0].completed = req.body.completed;
+              products[0].name = req.body.name;
+              products[0].description = req.body.description;
+              products[0].priceSince = req.body.priceSince;
               products[0].save((err, updatedProduct)=>{
                   if(err){
                       res.status(500).send(err);
