@@ -299,6 +299,17 @@ let db = (function(){
       });
     },
     
+    getRequest: function(req, res){
+
+      Requests.find({"uniqueCode": req.params.id}).
+      exec((err,requests)=>{
+        if (err){
+          res.status(500).send(err);
+        }
+        res.status(200).json(requests);
+      });
+    },
+    
     createRequest: function(req, res){
     
       let maxUniqueCode = 0;
@@ -362,6 +373,42 @@ let db = (function(){
                     res.status(500).json(updatedRequest);
                 }
             });
+          }
+      });
+    },
+    
+    deleteRequests: function(req, res){
+      Requests.remove((err)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              res.status(200).json({msg: 'OK'});
+          }
+      });
+    },
+    
+    deleteRequest: function(req, res){
+
+      Requests.find({"uniqueCode": req.params.id}).
+        exec((err,requests)=>{
+          if(err){
+            res.status(500).send(err);
+          }
+          else{
+            if(requests.length > 0){
+              requests[0].remove((err, deletedRequest)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(deletedRequest);
+                  }
+              });
+            }
+            else{
+              res.status(200).json(requests);
+            }
           }
       });
     }
