@@ -67,7 +67,7 @@ var storageService = (function(){
     },
     
     getRequest: function(req, res){
-      db.getRequests(req, res);
+      db.getRequest(req, res);
     },
     
     createRequest: function(req, res){
