@@ -37,15 +37,34 @@ let db = (function(){
     },
         
     createProduct: function(req, res){
-      let product = new Products( req.body );
-      product.save((err,newProduct)=>{
-        if(err){
-            res.status(500).send(err);
-        }
-        else{
-            res.json(200, newProduct);
-        }
-      });
+      
+      let maxUniqueCode = 0;
+  
+      Products.find({}).
+        limit(1).
+        sort('-uniqueCode').
+        select('uniqueCode').
+        exec((err,products)=>{
+          if(err){
+              res.status(500).send(err);
+          }
+          else{
+              products.map(function (product) {
+                  maxUniqueCode = product.uniqueCode;
+              });
+          }
+        });
+      
+        let newProduct = new Products(req.body);
+        newProduct.uniqueCode = maxUniqueCode + 1;
+        newProduct.save(function (err) {
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                res.json(200, newProduct);
+            }
+        });
     },
     
     updateProduct: function(req, res){
