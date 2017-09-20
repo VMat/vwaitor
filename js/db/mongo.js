@@ -141,17 +141,15 @@ let db = (function(){
           }
       });
     },
-    
+        
     getAccount: function(req, res){
 
       Accounts.find({"uniqueCode": req.params.id}).
-          exec((err,accounts)=>{
-            if(err){
-              res.status(500).send(err);
-            }
-            else{
-              res.status(200).json(accounts)
-            }
+      exec((err,accounts)=>{
+        if (err){
+          res.status(500).send(err);
+        }
+        res.status(200).json(accounts);
       });
     },
     
