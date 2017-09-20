@@ -188,7 +188,7 @@ let db = (function(){
         });
     },
     
-    updateAccount: function(req, res){
+    patchAccount: function(req, res){
       let newRequest = new Accounts(req.body);
 
       Accounts.find({"uniqueCode": req.params.id}).
@@ -202,6 +202,40 @@ let db = (function(){
                 accounts[0].products = [];
               }
               accounts[0].products.concat(req.body);
+              accounts[0].save((err, updatedAccount)=>{
+                  if(err){
+                      res.status(500).send(err);
+                  }
+                  else{
+                      res.status(200).json(updatedAccount);
+                  }
+              })
+            }
+            else{
+              res.status(200).json(accounts)
+            }
+          }
+      });
+    },
+    
+    updateAccount: function(req, res){
+      let newRequest = new Accounts(req.body);
+
+      Accounts.find({"uniqueCode": req.params.id}).
+        exec((err,accounts)=>{
+          if(err){
+            res.status(500).send(err);
+          }
+          else{
+            if(accounts.length > 0){
+              if(!Boolean(accounts[0].products)){
+                accounts[0].products = [];
+              }
+              accounts[0].tableUniqueCodes = req.body.tableUniqueCodes;
+              accounts[0].products = req.body.products;
+              accounts[0].total = req.body.total;
+              accounts[0].open = req.body.open;
+              accounts[0].paymentMethod = req.body.paymentMethod;
               accounts[0].save((err, updatedAccount)=>{
                   if(err){
                       res.status(500).send(err);
