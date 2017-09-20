@@ -327,33 +327,33 @@ let db = (function(){
                 maxUniqueCode = request.uniqueCode;
             });
           }
-        });
-
-      let newRequest = new Requests(req.body);
-      newRequest.uniqueCode = maxUniqueCode + 1;
-      newRequest.save((err)=>{
-        if(err){
-            res.status(500).send(err);
-        }
-        else{
-            Accounts.find((err, accounts)=>{
-                let newAccount = null;
-                if(accounts.length>0){
-                    newAccount = accounts[0].requests.push(newRequest);
-                }
-                else{
-                    newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
-                }
-                newAccount.save((err)=>{
-                    if(err){
-                        res.status(500).send(err);
+        }).then()=>{
+          let newRequest = new Requests(req.body);
+          newRequest.uniqueCode = maxUniqueCode + 1;
+          newRequest.save((err)=>{
+            if(err){
+                res.status(500).send(err);
+            }
+            else{
+                Accounts.find((err, accounts)=>{
+                    let newAccount = null;
+                    if(accounts.length>0){
+                        newAccount = accounts[0].requests.push(newRequest);
                     }
+                    else{
+                        newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+                    }
+                    newAccount.save((err)=>{
+                        if(err){
+                            res.status(500).send(err);
+                        }
+                    })
                 })
-            })
-        }
+            }
 
-        res.json(200, newRequest);
-      });
+            res.json(200, newRequest);
+          });
+        }
     },
     
     updateRequest: function(req, res){
