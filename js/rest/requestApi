@@ -5,12 +5,24 @@ router.get('/', function (req, res){
   storageService.getRequests(req, res);
 });
 
+router.get('/:id', function (req, res){
+  storageService.getRequest(req, res);
+});
+
 router.post('/', function (req, res){
   storageService.createRequest(req, res)
 });
       
 router.put('/:id', function (req, res) {
   storageService.updateRequest(req, res);
+});
+
+router.delete('/', function (req, res) {
+  storageService.deleteRequests(req, res);
+});
+
+router.delete('/:id', function (req, res) {
+  storageService.deleteRequest(req, res);
 });
 
 module.exports = router;
