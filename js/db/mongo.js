@@ -53,17 +53,17 @@ let db = (function(){
                   maxUniqueCode = product.uniqueCode;
               });
           }
-        });
-      
-        let newProduct = new Products(req.body);
-        newProduct.uniqueCode = maxUniqueCode + 1;
-        newProduct.save(function (err) {
+        }).then(()=>{
+          let newProduct = new Products(req.body);
+          newProduct.uniqueCode = maxUniqueCode + 1;
+          newProduct.save(function (err) {
             if(err){
                 res.status(500).send(err);
             }
             else{
                 res.json(200, newProduct);
             }
+          });
         });
     },
     
@@ -174,17 +174,17 @@ let db = (function(){
                   maxUniqueCode = account.uniqueCode;
               });
           }
-        });
-      
-        let newAccount = new Accounts(req.body);
-        newAccount.uniqueCode = maxUniqueCode + 1;
-        newAccount.save(function (err) {
+        }).then(()=>{
+          let newAccount = new Accounts(req.body);
+          newAccount.uniqueCode = maxUniqueCode + 1;
+          newAccount.save(function (err) {
             if(err){
                 res.status(500).send(err);
             }
             else{
                 res.json(200, newAccount);
             }
+          });
         });
     },
     
