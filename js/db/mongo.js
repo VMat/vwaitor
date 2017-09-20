@@ -154,7 +154,7 @@ let db = (function(){
     },
     
     createAccount: function(req, res){
-      console.log(JSON.stringify(req));
+      console.log(req);
       let maxUniqueCode = 0;
   
       Accounts.find({}).
@@ -174,7 +174,7 @@ let db = (function(){
               });
           }
         }).then(()=>{
-          console.log(JSON.stringify(req));
+          console.log(req);
           let newAccount = new Accounts(req.body);
           newAccount.uniqueCode = maxUniqueCode + 1;
           newAccount.save(function (err) {
