@@ -35,7 +35,7 @@ var storageService = (function(){
     },
     
     getAccounts: function(req, res){
-      db.getAccount(req, res);
+      db.getAccounts(req, res);
     },
    
     getAccount: function(req, res){
