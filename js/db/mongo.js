@@ -154,7 +154,7 @@ let db = (function(){
     },
     
     createAccount: function(req, res){
-      console.log(req);
+
       let maxUniqueCode = 0;
   
       Accounts.find({}).
@@ -174,7 +174,7 @@ let db = (function(){
               });
           }
         }).then(()=>{
-          console.log(req);
+         
           let newAccount = new Accounts(req.body);
           newAccount.uniqueCode = maxUniqueCode + 1;
           newAccount.save(function (err) {
@@ -182,7 +182,7 @@ let db = (function(){
                 res.status(500).send(err);
             }
             else{
-                res.json(200, newAccount);
+                res.status(200).json(newAccount);
             }
           });
         });
