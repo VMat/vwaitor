@@ -198,6 +198,9 @@ let db = (function(){
           }
           else{
             if(accounts.length > 0){
+              if(!Boolean(accounts[0].products)){
+                accounts[0].products = [];
+              }
               accounts[0].products.concat(req.body);
               accounts[0].save((err, updatedAccount)=>{
                   if(err){
