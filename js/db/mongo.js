@@ -364,7 +364,6 @@ let db = (function(){
             res.status(500).send(err);
           }
           else{
-            oldRequest.products.push(req.body.products);
             oldRequest.save((err, updatedRequest)=>{
                 if(err){
                     res.status(500).send(err);
