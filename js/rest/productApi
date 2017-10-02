@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var productService = require('../services/productService.js');
+var productService = require('../services/productService');
   
 router.get('/', function (req, res){
   productService.getProducts(req, res);
