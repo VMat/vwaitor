@@ -16,4 +16,4 @@ const Product = (function(){
 
 })();
 
-module.exports Product;
+module.exports = Product;
