@@ -19,9 +19,12 @@ let db = (function(){
       });
     },
     
-    getProducts: function(req, res){
-      Products.find( function (err, products){
-        res.status(200).json(products);
+    getProducts: function(){
+      Products.find(function (err, products){
+        if(err){
+          return err;
+        }
+        return products;
       });
     },
     
