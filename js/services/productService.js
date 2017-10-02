@@ -52,8 +52,8 @@ const productService = (function(){
         then(deletedProduct=>resolve(deletedProduct)).
         catch(error=>reject(error))  
       })
-      
-  }
+    }
+  };
 
   return oProductService;
 
