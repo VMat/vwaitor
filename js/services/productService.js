@@ -7,7 +7,9 @@ const productService = (function(){
   oProductService.prototype = {
   
     getProducts: function(){      
-      return storageService.getProducts();
+      return new Promise((resolve, reject)=>{
+        storageService.getProducts();
+      })
     },
     
     getProduct: function(req, res){
