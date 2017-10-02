@@ -8,7 +8,9 @@ const productService = (function(){
   
     getProducts: function(){      
       return new Promise((resolve, reject)=>{
-        storageService.getProducts();
+        storageService.getProducts().
+          then(products=>resolve(products)).
+          catch(error=>reject(error))        
       })
     },
     
