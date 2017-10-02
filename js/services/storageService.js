@@ -10,8 +10,8 @@ var storageService = (function(){
       db.connect();
     },
     
-    getProducts: function(req, res){
-      db.getProducts(req, res);
+    getProducts: function(){
+      db.getProducts();
     },
     
     getProduct: function(req, res){
