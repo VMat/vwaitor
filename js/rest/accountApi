@@ -1,32 +1,32 @@
-var router = require('express').Router();
-var storageService = require('../services/storageService.js');
+const router = require('express').Router();
+const Account = require('../server/Account.js');
 
 router.get('/', function(req, res){
-    storageService.getAccounts(req, res);
+    Account.getAccounts(req, res);
 });
 
 router.get('/:id', function(req, res){
-  storageService.getAccount(req, res);
+    Account.getAccount(req, res);
 });
 
 router.post('/', function (req, res){
-  storageService.createAccount(req, res);
+    Account.createAccount(req, res);
 });
 
 router.put('/:id', function (req, res){
-  storageService.updateAccount(req, res);
+    Account.updateAccount(req, res);
 });
 
 router.patch('/:id', function (req, res){
-  storageService.patchAccount(req, res);
+    Account.patchAccount(req, res);
 });
 
 router.delete('/', function (req, res){
-  storageService.deleteAccounts(req, res);
+    Account.deleteAccounts(req, res);
 });
 
 router.delete('/:id', function (req, res){
-  storageService.deleteAccount(req, res);
+    Account.deleteAccount(req, res);
 });
 
 module.exports = router;
