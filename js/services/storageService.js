@@ -14,24 +14,24 @@ var storageService = (function(){
       return db.getProducts();
     },
     
-    getProduct: function(req, res){
-      db.getProduct(req, res);
+    getProduct: function(id){
+      return db.getProduct(id);
     },
     
-    createProduct: function(req, res){
-      db.createProduct(req, res);
+    createProduct: function(product){
+      return db.createProduct(product);
     },
     
-    updateProduct: function(req, res){
-      db.updateProduct(req, res);
+    updateProduct: function(id,product){
+      return db.updateProduct(id,product);
     },
     
-    deleteProducts: function(req, res){
-      db.deleteProducts(req, res);
+    deleteProducts: function(){
+      return db.deleteProducts();
     },
     
-    deleteProduct: function(req, res){
-      db.deleteProduct(req, res);
+    deleteProduct: function(id){
+      return db.deleteProduct(id);
     },
     
     getAccounts: function(req, res){
