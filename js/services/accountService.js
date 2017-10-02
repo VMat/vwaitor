@@ -1,4 +1,4 @@
-const storageService = require('../services/storageService');
+const storageService = require('./storageService');
 
 const accountService = (function(){
 
