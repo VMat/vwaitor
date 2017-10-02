@@ -2,7 +2,9 @@ var router = require('express').Router();
 var productService = require('../services/productService');
   
 router.get('/', function (req, res){
-  productService.getProducts(req, res);
+  productService.getProducts()
+    .then(products=>{res.status(200).json(products)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.get('/:id', function (req, res){
