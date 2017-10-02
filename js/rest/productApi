@@ -1,28 +1,28 @@
 var router = require('express').Router();
-var storageService = require('../services/storageService.js');
+var productService = require('../services/productService.js');
   
 router.get('/', function (req, res){
-  storageService.getProducts(req, res);
+  productService.getProducts(req, res);
 });
 
 router.get('/:id', function (req, res){
-  storageService.getProduct(req, res);
+  productService.getProduct(req, res);
 });
 
 router.post('/', function (req, res){
-  storageService.createProduct(req, res);
+  productService.createProduct(req, res);
 });
 
 router.put('/:id', function (req, res){
-  storageService.updateProduct(req,res);
+  productService.updateProduct(req,res);
 });
 
 router.delete('/', function (req, res){
-  storageService.deleteProducts(req ,res);
+  productService.deleteProducts(req ,res);
 });
 
 router.delete('/:id', function (req, res){
-  storageService.deleteProduct(req, res);
+  productService.deleteProduct(req, res);
 });
 
 module.exports = router;
