@@ -26,7 +26,7 @@ const accountService = (function(){
       return storageService.patchAccount(req, res);
     },
     
-    deleteAccounts function(req, res){
+    deleteAccounts: function(req, res){
       return storageService.deleteAccounts(req, res);
     },
     
