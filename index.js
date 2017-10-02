@@ -7,7 +7,7 @@ var storageService = require('./js/services/storageService.js');
 var routeServer = require('./js/router/routeServer');
 
 // use it before all route definitions
-app.use(cors({origin: 'http://localhost:5000'}));
+app.use(cors({origin: 'http://localhost:8000'}));
 
 storageService.connect();
 
