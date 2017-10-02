@@ -6,27 +6,27 @@ const productService = (function(){
   
   oProductService.prototype = {
   
-    getProducts: function(){      
+    getProducts: function(req, res){      
       return storageService.getProducts(req, res);
     },
     
-    getProduct: function(){
+    getProduct: function(req, res){
       return storageService.getProduct(req, res);
     },
     
-    createProduct: function(){
+    createProduct: function(req, res){
       return storageService.createProduct(req, res);
     },
     
-    updateProduct: function(){
+    updateProduct: function(req, res){
       return storageService.updateProduct(req, res);
     },
     
-    deleteProducts: function(){
+    deleteProducts: function(req, res){
       return storageService.deleteProducts(req, res);
     },
     
-    deleteProduct: function(){
+    deleteProduct: function(req, res){
       return storageService.deleteProduct(req, res);
     }
       
