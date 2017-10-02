@@ -1,5 +1,5 @@
 var router = require('express').Router();
-var requestService = require('../services/requestService.js');
+var requestService = require('../services/requestService');
 
 router.get('/', function (req, res){
   requestService.getRequests(req, res);
