@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const accountService = require('../services/accountService.js');
+const accountService = require('../services/accountService');
 
 router.get('/', function(req, res){
     accountService.getAccounts(req, res);
