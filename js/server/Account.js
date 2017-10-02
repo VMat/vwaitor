@@ -1,10 +1,10 @@
 const storageService = require('../services/storageService');
 
-const Account = (function(){
+const serviceAccount = (function(){
 
-  function oAccount(){}
+  function oServiceAccount(){}
   
-  oAccount.prototype = {
+  oServiceAccount.prototype = {
   
     getAccounts: function(){      
       return storageService.getAccounts();
@@ -12,8 +12,10 @@ const Account = (function(){
   
   }
 
-  return oAccount;
+  return oServiceAccount;
 
 })();
 
-module.exports = Account;
+const oServiceAccount = new serviceAccount();
+
+module.exports = oServiceAccount;
