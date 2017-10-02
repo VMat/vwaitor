@@ -6,8 +6,8 @@ const productService = (function(){
   
   oProductService.prototype = {
   
-    getProducts: function(req, res){      
-      return storageService.getProducts(req, res);
+    getProducts: function(){      
+      return storageService.getProducts();
     },
     
     getProduct: function(req, res){
