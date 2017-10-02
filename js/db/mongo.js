@@ -20,12 +20,7 @@ let db = (function(){
     },
     
     getProducts: function(){
-      Products.find(function (err, products){
-        if(err){
-          return err;
-        }
-        return products;
-      });
+      return Products.find();
     },
     
     getProduct: function(req, res){
