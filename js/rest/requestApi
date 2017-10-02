@@ -1,28 +1,28 @@
 var router = require('express').Router();
-var storageService = require('../services/storageService.js');
+var requestService = require('../services/requestService.js');
 
 router.get('/', function (req, res){
-  storageService.getRequests(req, res);
+  requestService.getRequests(req, res);
 });
 
 router.get('/:id', function (req, res){
-  storageService.getRequest(req, res);
+  requestService.getRequest(req, res);
 });
 
 router.post('/', function (req, res){
-  storageService.createRequest(req, res)
+  requestService.createRequest(req, res)
 });
       
 router.put('/:id', function (req, res) {
-  storageService.updateRequest(req, res);
+  requestService.updateRequest(req, res);
 });
 
 router.delete('/', function (req, res) {
-  storageService.deleteRequests(req, res);
+  requestService.deleteRequests(req, res);
 });
 
 router.delete('/:id', function (req, res) {
-  storageService.deleteRequest(req, res);
+  requestService.deleteRequest(req, res);
 });
 
 module.exports = router;
