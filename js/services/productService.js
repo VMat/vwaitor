@@ -30,9 +30,9 @@ const productService = (function(){
       })
     },
     
-    updateProduct: function(product){
+    updateProduct: function(id,product){
       return new Promise((resolve, reject)=>{
-        storageService.updateProduct(product).
+        storageService.updateProduct(id,product).
           then(updatedProduct=>resolve(updatedProduct)).
           catch(error=>reject(error))  
       })
