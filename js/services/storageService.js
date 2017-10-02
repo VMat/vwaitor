@@ -11,7 +11,7 @@ var storageService = (function(){
     },
     
     getProducts: function(){
-      db.getProducts();
+      return db.getProducts();
     },
     
     getProduct: function(req, res){
