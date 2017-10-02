@@ -16,4 +16,4 @@ const Account = (function(){
 
 })();
 
-module.exports Account;
+module.exports = Account;
