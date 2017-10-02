@@ -14,25 +14,44 @@ const productService = (function(){
       })
     },
     
-    getProduct: function(req, res){
-      return storageService.getProduct(req, res);
+    getProduct: function(id){
+      return new Promise((resolve, reject)=>{
+        storageService.getProduct(id).
+          then(products=>resolve(products)).
+          catch(error=>reject(error))        
+      })
     },
     
-    createProduct: function(req, res){
-      return storageService.createProduct(req, res);
+    createProduct: function(product){
+      return new Promise((resolve, reject)=>{
+        storageService.createProduct(product).
+          then(newProduct=>resolve(newProduct)).
+          catch(error=>reject(error)) 
+      })
     },
     
-    updateProduct: function(req, res){
-      return storageService.updateProduct(req, res);
+    updateProduct: function(product){
+      return new Promise((resolve, reject)=>{
+        storageService.updateProduct(product).
+          then(updatedProduct=>resolve(updatedProduct)).
+          catch(error=>reject(error))  
+      })
     },
     
-    deleteProducts: function(req, res){
-      return storageService.deleteProducts(req, res);
+    deleteProducts: function(){
+      return new Promise((resolve, reject)=>{
+        storageService.deleteProducts().
+          then(deletedProducts=>resolve(deletedProducts)).
+          catch(error=>reject(error))  
+      })
     },
     
-    deleteProduct: function(req, res){
-      return storageService.deleteProduct(req, res);
-    }
+    deleteProduct: function(id){
+      return new Promise((resolve, reject)=>{
+      storageService.deleteProduct(id).
+        then(deletedProduct=>resolve(deletedProduct)).
+        catch(error=>reject(error))  
+      })
       
   }
 
