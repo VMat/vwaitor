@@ -23,108 +23,52 @@ let db = (function(){
       return Products.find();
     },
     
-    getProduct: function(req, res){
-
-      Products.find({"uniqueCode": req.params.id}).
-      exec((err,products)=>{
-        if (err){
-          res.status(500).send(err);
-        }
-        res.status(200).json(products);
-      });
+    getProduct: function(id){
+      return Products.find({"uniqueCode": id});
     },
         
-    createProduct: function(req, res){
+    createProduct: function(product){
       
       let maxUniqueCode = 0;
   
-      Products.find({}).
+      return Products.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
         exec((err,products)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              products.map(function (product) {
-                  maxUniqueCode = product.uniqueCode;
-              });
-          }
-        }).then(()=>{
-          let newProduct = new Products(req.body);
-          newProduct.uniqueCode = maxUniqueCode + 1;
-          newProduct.save(function (err) {
-            if(err){
-                res.status(500).send(err);
-            }
-            else{
-                res.json(200, newProduct);
-            }
+          products.map(function (product) {
+            maxUniqueCode = product.uniqueCode;
           });
+        }).then(()=>{
+          let newProduct = new Products(product);
+          newProduct.uniqueCode = maxUniqueCode + 1;
+          newProduct.save();
         });
     },
     
-    updateProduct: function(req, res){
+    updateProduct: function(id, product){
 
-      Products.find({"uniqueCode": req.params.id}).
+      return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            if(products.length > 0){
-              products[0].name = req.body.name;
-              products[0].description = req.body.description;
-              products[0].priceSince = req.body.priceSince;
-              products[0].save((err, updatedProduct)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(updatedProduct);
-                  }
-              });
-            }
-            else{
-              res.status(200).json(products);
-            }
+          if(products.length > 0){
+            products[0].name = product.name;
+            products[0].description = product.description;
+            products[0].priceSince = product.priceSince;
+            products[0].save();            
           }
         });
     },
     
-    deleteProducts: function(req, res){
-      Products.remove((err)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              res.status(200).json({msg: 'OK'});
-          }
-      });
+    deleteProducts: function(){
+      return Products.remove();
     },
     
-    deleteProduct: function(req, res){
+    deleteProduct: function(id){
 
-      Products.find({"uniqueCode": req.params.id}).
+      return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            if(products.length > 0){
-              products[0].remove((err, deletedProduct)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(deletedProduct);
-                  }
-              });
-            }
-            else{
-              res.status(200).json(products);
-            }
+          if(products.length > 0){
+            products[0].remove();
           }
       });
     },
