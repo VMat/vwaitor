@@ -140,10 +140,10 @@ let db = (function(){
           }
           else{
             if(accounts.length > 0){
-              if(!Boolean(accounts[0].products)){
-                accounts[0].products = [];
+              if(!Boolean(accounts[0].requests)){
+                accounts[0].requests = [];
               }
-              accounts[0].products.concat(req.body);
+              accounts[0].requests.concat(req.body);
               accounts[0].save((err, updatedAccount)=>{
                   if(err){
                       res.status(500).send(err);
