@@ -73,33 +73,19 @@ let db = (function(){
       });
     },
     
-    getAccounts: function(req, res){
-      Accounts.find((err, accounts)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              res.status(200).json(accounts);
-          }
-      });
+    getAccounts: function(){
+      return Accounts.find();
     },
         
-    getAccount: function(req, res){
-
-      Accounts.find({"uniqueCode": req.params.id}).
-      exec((err,accounts)=>{
-        if (err){
-          res.status(500).send(err);
-        }
-        res.status(200).json(accounts);
-      });
+    getAccount: function(id){
+      return Accounts.find({"uniqueCode": id});
     },
     
-    createAccount: function(req, res){
+    createAccount: function(account){
 
       let maxUniqueCode = 0;
   
-      Accounts.find({}).
+      return Accounts.find({}).
         //where('name.last').equals('Ghost').
         //where('age').gt(17).lt(66).
         //where('likes').in(['vaporizing', 'talking']).
@@ -107,257 +93,124 @@ let db = (function(){
         sort('-uniqueCode').
         select('uniqueCode').
         exec((err,accounts)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              accounts.map(function (account) {
-                  maxUniqueCode = account.uniqueCode;
-              });
-          }
-        }).then(()=>{
-         
-          let newAccount = new Accounts(req.body);
-          newAccount.uniqueCode = maxUniqueCode + 1;
-          newAccount.save(function (err) {
-            if(err){
-                res.status(500).send(err);
-            }
-            else{
-                res.status(200).json(newAccount);
-            }
+          accounts.map(function (account) {
+              maxUniqueCode = account.uniqueCode;
           });
+        }).then(()=>{
+          let newAccount = new Accounts(account);
+          newAccount.uniqueCode = maxUniqueCode + 1;
+          newAccount.save();
         });
     },
     
-    patchAccount: function(req, res){
-      let newRequest = new Accounts(req.body);
+    patchAccount: function(id, account){
+      let newRequest = new Accounts(account);
 
-      Accounts.find({"uniqueCode": req.params.id}).
+      return Accounts.find({"uniqueCode": id}).
         exec((err,accounts)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            if(accounts.length > 0){
-              if(!Boolean(accounts[0].requests)){
-                accounts[0].requests = [];
-                accounts[0].total = 0;
-              }
-              accounts[0].requests.concat(req.body.requests);
-              accounts[0].total += req.body.total;
-              accounts[0].save((err, updatedAccount)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(updatedAccount);
-                  }
-              })
+          if(accounts.length > 0){
+            if(!Boolean(accounts[0].requests)){
+              accounts[0].requests = [];
+              accounts[0].total = 0;
             }
-            else{
-              res.status(200).json(accounts)
-            }
+            accounts[0].requests.concat(account.requests);
+            accounts[0].total += account.total;
+            accounts[0].save();
           }
-      });
+        });
     },
     
-    updateAccount: function(req, res){
-      let newRequest = new Accounts(req.body);
+    updateAccount: function(id, account){
+      let newRequest = new Accounts(account);
 
-      Accounts.find({"uniqueCode": req.params.id}).
+      return Accounts.find({"uniqueCode": id}).
         exec((err,accounts)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            if(accounts.length > 0){
-              if(!Boolean(accounts[0].products)){
-                accounts[0].products = [];
-              }
-              accounts[0].tableUniqueCodes = req.body.tableUniqueCodes;
-              accounts[0].products = req.body.products;
-              accounts[0].total = req.body.total;
-              accounts[0].open = req.body.open;
-              accounts[0].paymentMethod = req.body.paymentMethod;
-              accounts[0].save((err, updatedAccount)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(updatedAccount);
-                  }
-              })
+          if(accounts.length > 0){
+            if(!Boolean(accounts[0].products)){
+              accounts[0].products = [];
             }
-            else{
-              res.status(200).json(accounts)
-            }
+            accounts[0].tableUniqueCodes = account.tableUniqueCodes;
+            accounts[0].products = account.products;
+            accounts[0].total = account.total;
+            accounts[0].open = account.open;
+            accounts[0].paymentMethod = account.paymentMethod;
+            accounts[0].save();
           }
-      });
+        });
     },
     
-    deleteAccounts: function(req, res){
-      Accounts.remove((err)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              res.status(200).json({msg: 'OK'});
-          }
-      });
+    deleteAccounts: function(){
+      return Accounts.remove();
     },
     
-    deleteAccount: function(req, res){
-
-      Accounts.find({"uniqueCode": req.params.id}).
-        exec((err,accounts)=>{
-          if(err){
-            res.status(500).send(err);
+    deleteAccount: function(id){
+      return Accounts.find({"uniqueCode": id}).
+        exec((err,accounts)=>{        
+          if(accounts.length > 0){
+            accounts[0].remove();
           }
-          else{
-            if(accounts.length > 0){
-              accounts[0].remove((err, deletedAccount)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(deletedAccount);
-                  }
-              });
-            }
-            else{
-              res.status(200).json(accounts);
-            }
-          }
+        }
       });
     },   
     
-    getRequests: function(req, res){
-      Requests.find((err, requests)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              res.status(200).json(requests);
-          }
-      });
+    getRequests: function(){
+      return Requests.find();
     },
     
-    getRequest: function(req, res){
-
-      Requests.find({"uniqueCode": req.params.id}).
-      exec((err,requests)=>{
-        if (err){
-          res.status(500).send(err);
-        }
-        res.status(200).json(requests);
-      });
+    getRequest: function(id){
+      return Requests.find({"uniqueCode": id});
     },
     
-    createRequest: function(req, res){
+    createRequest: function(request){
     
       let maxUniqueCode = 0;
   
-      Requests.find({}).
+      return Requests.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
         exec((err,requests)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            requests.map((request)=>{
-                maxUniqueCode = request.uniqueCode;
-            });
-          }
+          requests.map((request)=>{
+              maxUniqueCode = request.uniqueCode;
+          });
         }).then(()=>{
-          let newRequest = new Requests(req.body);
+          let newRequest = new Requests(request);
           newRequest.uniqueCode = maxUniqueCode + 1;
           newRequest.save((err)=>{
-            if(err){
-                res.status(500).send(err);
-            }
-            else{
-                Accounts.find((err, accounts)=>{
-                    let newAccount = null;
-                    if(accounts.length>0){
-                        newAccount = accounts[0].requests.push(newRequest);
-                    }
-                    else{
-                        newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
-                    }
-                    newAccount.save((err)=>{
-                        if(err){
-                            res.status(500).send(err);
-                        }
-                      else{
-                        res.json(200, newRequest);
-                      }
-                    })
-                })
-            }
+            Accounts.find((err, accounts)=>{
+                let newAccount = null;
+                if(accounts.length>0){
+                    newAccount = accounts[0].requests.push(newRequest);
+                }
+                else{
+                    newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+                }
+                newAccount.save();
+            })
           });
         });
     },
     
-    updateRequest: function(req, res){
+    updateRequest: function(id, request){
 
-      Requests.find({"uniqueCode": req.params.id}).
+      return Requests.find({"uniqueCode": id}).
         exec((err,requests)=>{
-          if(err){
-            res.status(500).send(err);
+          if(requests.length > 0){
+            requests[0] = request;
+            requests[0].save();
           }
-          else{
-            if(requests.length > 0){
-              requests[0].save((err, updatedRequest)=>{
-                if(err){
-                    res.status(500).send(err);
-                }
-                else{
-                    res.status(200).json(updatedRequest);
-                }
-              });
-            }
-            else{
-              res.status(200).json(requests)
-            }
-          }
-      });
+        });
     },
     
-    deleteRequests: function(req, res){
-      Requests.remove((err)=>{
-          if(err){
-              res.status(500).send(err);
-          }
-          else{
-              res.status(200).json({msg: 'OK'});
-          }
-      });
+    deleteRequests: function(){
+      return Requests.remove();
     },
     
-    deleteRequest: function(req, res){
-
-      Requests.find({"uniqueCode": req.params.id}).
+    deleteRequest: function(id){
+      return Requests.find({"uniqueCode": id}).
         exec((err,requests)=>{
-          if(err){
-            res.status(500).send(err);
-          }
-          else{
-            if(requests.length > 0){
-              requests[0].remove((err, deletedRequest)=>{
-                  if(err){
-                      res.status(500).send(err);
-                  }
-                  else{
-                      res.status(200).json(deletedRequest);
-                  }
-              });
-            }
-            else{
-              res.status(200).json(requests);
-            }
+          if(requests.length > 0){
+            requests[0].remove();
           }
       });
     }
