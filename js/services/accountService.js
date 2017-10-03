@@ -6,32 +6,32 @@ const accountService = (function(){
   
   oAccountService.prototype = {
   
-    getAccounts: function(req, res){      
-      return storageService.getAccounts(req, res);
+    getAccounts: function(){      
+      return storageService.getAccounts();
     },
     
-    getAccount: function(req, res){
-      return storageService.getAccount(req, res);
+    getAccount: function(id){
+      return storageService.getAccount(id);
     },
     
-    createAccount: function(req, res){
-      return storageService.createAccount(req, res);
+    createAccount: function(account){
+      return storageService.createAccount(account);
     },
     
-    updateAccount: function(req, res){
-      return storageService.updateAccount(req, res);
+    updateAccount: function(id, account){
+      return storageService.updateAccount(id, account);
     },
     
-    patchAccount: function(req, res){
-      return storageService.patchAccount(req, res);
+    patchAccount: function(id, account){
+      return storageService.patchAccount(id, account);
     },
     
-    deleteAccounts: function(req, res){
-      return storageService.deleteAccounts(req, res);
+    deleteAccounts: function(){
+      return storageService.deleteAccounts();
     },
     
-    deleteAccount: function(req, res){
-      return storageService.deleteAccount(req, res);
+    deleteAccount: function(id){
+      return storageService.deleteAccount(id);
     }
   
   };
