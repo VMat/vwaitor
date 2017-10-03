@@ -24,7 +24,7 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return Products.findOne({"uniqueCode": id}).exec();
+      return Products.find({"uniqueCode": id}).exec();
     },
         
     createProduct: function(product){
