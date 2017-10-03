@@ -1,7 +1,8 @@
-let mongoose = require('mongoose');
-let Products = require('../models/product');
-let Requests = require('../models/request');
-let Accounts = require('../models/account');
+const mongoose = require('mongoose');
+const Products = require('../models/product');
+const Requests = require('../models/request');
+const Accounts = require('../models/account');
+const assert = require('assert');
 // Use native promises
 mongoose.Promise = global.Promise;
 
