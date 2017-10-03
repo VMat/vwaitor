@@ -34,7 +34,15 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return Products.find({"uniqueCode": id},this.callback);
+      return Products.find({"uniqueCode": id},function(error,result){
+        return new Promise((resolve,reject)=>{
+          if(error){
+            reject(error)
+          }else{
+            resolve(result);
+          }
+        });  
+      });
     },
         
     createProduct: function(product){
