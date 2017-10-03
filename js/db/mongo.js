@@ -2,10 +2,7 @@ const mongoose = require('mongoose');
 const Products = require('../models/product');
 const Requests = require('../models/request');
 const Accounts = require('../models/account');
-const assert = require('assert');
-// Use native promises
-mongoose.Promise = global.Promise;
-
+mongoose.Promise = require('bluebird');
 
 let db = (function(){
 
@@ -28,8 +25,7 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return assert.equal(Products.find({"uniqueCode": id}).exec().constructor, global.Promise);
-      //return Products.find({"uniqueCode": id}).exec();
+      return Products.find({"uniqueCode": id});
     },
         
     createProduct: function(product){
