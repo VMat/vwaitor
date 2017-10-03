@@ -142,8 +142,10 @@ let db = (function(){
             if(accounts.length > 0){
               if(!Boolean(accounts[0].requests)){
                 accounts[0].requests = [];
+                accounts[0].total = 0;
               }
-              accounts[0].requests.concat(req.body);
+              accounts[0].requests.concat(req.body.requests);
+              accounts[0].total += req.body.total;
               accounts[0].save((err, updatedAccount)=>{
                   if(err){
                       res.status(500).send(err);
