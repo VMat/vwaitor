@@ -2,11 +2,20 @@ const mongoose = require('mongoose');
 const Products = require('../models/product');
 const Requests = require('../models/request');
 const Accounts = require('../models/account');
-mongoose.Promise = require('bluebird');
 
 let db = (function(){
 
   function oDb(){}
+    
+  function callback(error,result){
+    return new Promise((resolve,reject)=>{
+      if(error){
+        reject(error)
+      }else{
+        resolve(result);
+      }
+    });  
+  }
   
   oDb.prototype = {
   
@@ -25,7 +34,7 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return Products.find({"uniqueCode": id});
+      return Products.find({"uniqueCode": id},this.callback);
     },
         
     createProduct: function(product){
