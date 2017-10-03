@@ -2,31 +2,31 @@ const router = require('express').Router();
 const accountService = require('../services/accountService');
 
 router.get('/', function(req, res){
-    accountService.getAccounts(req, res);
+    accountService.getAccounts();
 });
 
 router.get('/:id', function(req, res){
-    accountService.getAccount(req, res);
+    accountService.getAccount(req.params.id);
 });
 
 router.post('/', function (req, res){
-    accountService.createAccount(req, res);
+    accountService.createAccount(req.body);
 });
 
 router.put('/:id', function (req, res){
-    accountService.updateAccount(req, res);
+    accountService.updateAccount(req.params.id, req.body);
 });
 
 router.patch('/:id', function (req, res){
-    accountService.patchAccount(req, res);
+    accountService.patchAccount(req.params.id, req.body);
 });
 
 router.delete('/', function (req, res){
-    accountService.deleteAccounts(req, res);
+    accountService.deleteAccounts();
 });
 
 router.delete('/:id', function (req, res){
-    accountService.deleteAccount(req, res);
+    accountService.deleteAccount(req.params.id);
 });
 
 module.exports = router;
