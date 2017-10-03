@@ -2,27 +2,27 @@ var router = require('express').Router();
 var requestService = require('../services/requestService');
 
 router.get('/', function (req, res){
-  requestService.getRequests(req, res);
+  requestService.getRequests();
 });
 
 router.get('/:id', function (req, res){
-  requestService.getRequest(req, res);
+  requestService.getRequest(req.params.id);
 });
 
 router.post('/', function (req, res){
-  requestService.createRequest(req, res)
+  requestService.createRequest(req.body)
 });
       
 router.put('/:id', function (req, res) {
-  requestService.updateRequest(req, res);
+  requestService.updateRequest(req.params.id, req.body);
 });
 
 router.delete('/', function (req, res) {
-  requestService.deleteRequests(req, res);
+  requestService.deleteRequests();
 });
 
 router.delete('/:id', function (req, res) {
-  requestService.deleteRequest(req, res);
+  requestService.deleteRequest(req.params.id);
 });
 
 module.exports = router;
