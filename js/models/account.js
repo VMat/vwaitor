@@ -13,7 +13,8 @@ accountSchema = new mongoose.Schema({
       products: [{
           productUniqueCode: Number,
           name: String,
-          price: Number
+          price: Number,
+          img: [String]
       }],
       total: Number
   }],
