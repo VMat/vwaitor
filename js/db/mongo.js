@@ -149,8 +149,7 @@ let db = (function(){
           if(accounts.length > 0){
             accounts[0].remove();
           }
-        }
-      });
+        });
     },   
     
     getRequests: function(){
