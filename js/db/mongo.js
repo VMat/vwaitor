@@ -2,6 +2,9 @@ let mongoose = require('mongoose');
 let Products = require('../models/product');
 let Requests = require('../models/request');
 let Accounts = require('../models/account');
+// Use native promises
+mongoose.Promise = global.Promise;
+
 
 let db = (function(){
 
@@ -24,7 +27,8 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return Products.find({"uniqueCode": id}).exec();
+      return assert.equal(Products.find({"uniqueCode": id}).exec().constructor, global.Promise);
+      //return Products.find({"uniqueCode": id}).exec();
     },
         
     createProduct: function(product){
