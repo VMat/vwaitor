@@ -34,56 +34,56 @@ var storageService = (function(){
       return db.deleteProduct(id);
     },
     
-    getAccounts: function(req, res){
-      db.getAccounts(req, res);
+    getAccounts: function(){
+      return db.getAccounts();
     },
    
-    getAccount: function(req, res){
-      db.getAccount(req, res);
+    getAccount: function(id){
+      return db.getAccount(id);
     },
     
     createAccount: function(req, res){
-      db.createAccount(req, res);
+      return db.createAccount(req, res);
     },
     
-    patchAccount: function(req, res){
-      db.patchAccount(req, res);
+    patchAccount: function(id, account){
+      return db.patchAccount(id, account);
     },
     
-    updateAccount: function(req, res){
-      db.updateAccount(req, res);
+    updateAccount: function(id, account){
+      return db.updateAccount(id, account);
     },
     
-    deleteAccounts: function(req, res){
-      db.deleteAccounts(req, res);
+    deleteAccounts: function(){
+      return db.deleteAccounts();
     },
     
-    deleteAccount: function(req, res){
-      db.deleteAccount(req, res);
+    deleteAccount: function(id){
+      return db.deleteAccount(id);
     },
     
-    getRequests: function(req, res){
-      db.getRequests(req, res);
+    getRequests: function(){
+      return db.getRequests();
     },
     
-    getRequest: function(req, res){
-      db.getRequest(req, res);
+    getRequest: function(id){
+      return db.getRequest(id);
     },
     
-    createRequest: function(req, res){
-      db.createRequest(req, res);
+    createRequest: function(request){
+      return db.createRequest(request);
     },
     
-    updateRequest: function(req, res){
-      db.updateRequest(req, res);
+    updateRequest: function(id, request){
+      return db.updateRequest(id, request);
     },
     
-    deleteRequests: function(req, res){
-      db.deleteRequests(req, res);
+    deleteRequests: function(){
+      return db.deleteRequests();
     },
     
-    deleteRequest: function(req, res){
-      db.deleteRequest(req, res);
+    deleteRequest: function(id){
+      return db.deleteRequest(id);
     }
     
   };
