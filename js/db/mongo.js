@@ -34,8 +34,8 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      Products.find({"uniqueCode": id}).exec(function(error,result){
-        return new Promise((resolve,reject)=>{
+      return new Promise((resolve,reject)=>{
+        Products.find({"uniqueCode": id}).exec((error,result)=>{          
           if(error){
             reject(error)
           }else{
