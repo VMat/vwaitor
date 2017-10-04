@@ -42,7 +42,7 @@ let db = (function(){
         }).then(()=>{
           let newProduct = new Products(product);
           newProduct.uniqueCode = maxUniqueCode + 1;
-          newProduct.save();
+          return newProduct.save();
         });
     },
     
