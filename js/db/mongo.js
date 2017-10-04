@@ -54,7 +54,7 @@ let db = (function(){
             products[0].name = product.name;
             products[0].description = product.description;
             products[0].priceSince = product.priceSince;
-            return products[0].save();            
+            products[0].save();            
           }
         });
     },
