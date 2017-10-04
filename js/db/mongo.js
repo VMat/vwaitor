@@ -48,7 +48,7 @@ let db = (function(){
     
     updateProduct: function(id, product){
 
-      Products.find({"uniqueCode": id}).
+      return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
             products[0].name = product.name;
