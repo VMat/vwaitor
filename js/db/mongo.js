@@ -34,14 +34,7 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      Products.find({"uniqueCode": id}).exec((error,result)=>{          
-        if(error){
-          return error;
-        }else{
-          return result;
-        }
-      });  
-
+      return Products.find({"uniqueCode": id}).exec() 
     },
         
     createProduct: function(product){
