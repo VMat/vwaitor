@@ -54,7 +54,7 @@ let db = (function(){
             products[0].name = product.name;
             products[0].description = product.description;
             products[0].priceSince = product.priceSince;
-            products[0].save();            
+            return products[0].save();            
           }
         });
     },
@@ -101,7 +101,7 @@ let db = (function(){
         }).then(()=>{
           let newAccount = new Accounts(account);
           newAccount.uniqueCode = maxUniqueCode + 1;
-          newAccount.save();
+          return newAccount.save();
         });
     },
     
@@ -117,7 +117,7 @@ let db = (function(){
             }
             accounts[0].requests.concat(account.requests);
             accounts[0].total += account.total;
-            accounts[0].save();
+            return accounts[0].save();
           }
         });
     },
@@ -136,7 +136,7 @@ let db = (function(){
             accounts[0].total = account.total;
             accounts[0].open = account.open;
             accounts[0].paymentMethod = account.paymentMethod;
-            accounts[0].save();
+            return accounts[0].save();
           }
         });
     },
@@ -149,7 +149,7 @@ let db = (function(){
       return Accounts.find({"uniqueCode": id}).
         exec((err,accounts)=>{        
           if(accounts.length > 0){
-            accounts[0].remove();
+            return accounts[0].remove();
           }
         });
     },   
@@ -186,7 +186,7 @@ let db = (function(){
                 else{
                     newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
                 }
-                newAccount.save();
+                return newAccount.save();
             })
           });
         });
@@ -198,7 +198,7 @@ let db = (function(){
         exec((err,requests)=>{
           if(requests.length > 0){
             requests[0] = request;
-            requests[0].save();
+            return requests[0].save();
           }
         });
     },
@@ -211,7 +211,7 @@ let db = (function(){
       return Requests.find({"uniqueCode": id}).
         exec((err,requests)=>{
           if(requests.length > 0){
-            requests[0].remove();
+            return requests[0].remove();
           }
       });
     }
