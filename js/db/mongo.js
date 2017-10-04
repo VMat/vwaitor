@@ -6,17 +6,7 @@ const Accounts = require('../models/account');
 let db = (function(){
 
   function oDb(){}
-    
-  function callback(error,result){
-    return new Promise((resolve,reject)=>{
-      if(error){
-        reject(error)
-      }else{
-        resolve(result);
-      }
-    });  
-  }
-  
+      
   oDb.prototype = {
   
     connect: function(){
@@ -34,7 +24,7 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return Products.find({"uniqueCode": id}).exec() 
+      return Products.find({"uniqueCode": id}).exec();
     },
         
     createProduct: function(product){
