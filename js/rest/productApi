@@ -14,19 +14,27 @@ router.get('/:id', function (req, res){
 });
 
 router.post('/', function (req, res){
-  productService.createProduct(req.body);
+  productService.createProduct(req.body)
+    .then(product=>{res.status(200).json(product)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.put('/:id', function (req, res){
-  productService.updateProduct(req.params.id,req.body);
+  productService.updateProduct(req.params.id,req.body)
+    .then(product=>{res.status(200).json(product)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.delete('/', function (req, res){
-  productService.deleteProducts();
+  productService.deleteProducts()
+    .then(products=>{res.status(200).json(products)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.delete('/:id', function (req, res){
-  productService.deleteProduct(req.params.id);
+  productService.deleteProduct(req.params.id)
+    .then(product=>{res.status(200).json(product)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 module.exports = router;
