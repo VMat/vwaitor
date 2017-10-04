@@ -2,31 +2,45 @@ const router = require('express').Router();
 const accountService = require('../services/accountService');
 
 router.get('/', function(req, res){
-    accountService.getAccounts();
+  accountService.getAccounts()
+    .then(accounts=>{res.status(200).json(accounts)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.get('/:id', function(req, res){
-    accountService.getAccount(req.params.id);
+  accountService.getAccount(req.params.id)
+    .then(accounts=>{res.status(200).json(accounts)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.post('/', function (req, res){
-    accountService.createAccount(req.body);
+  accountService.createAccount(req.body)
+    .then(account=>{res.status(200).json(account)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.put('/:id', function (req, res){
-    accountService.updateAccount(req.params.id, req.body);
+  accountService.updateAccount(req.params.id, req.body)
+    .then(account=>{res.status(200).json(account)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.patch('/:id', function (req, res){
-    accountService.patchAccount(req.params.id, req.body);
+  accountService.patchAccount(req.params.id, req.body)
+    .then(account=>{res.status(200).json(account)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.delete('/', function (req, res){
-    accountService.deleteAccounts();
+  accountService.deleteAccounts()
+    .then(accounts=>{res.status(200).json(accounts)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 router.delete('/:id', function (req, res){
-    accountService.deleteAccount(req.params.id);
+  accountService.deleteAccount(req.params.id)
+    .then(account=>{res.status(200).json(account)})
+    .catch(error=>{res.status(500).send(err)})
 });
 
 module.exports = router;
