@@ -34,15 +34,14 @@ let db = (function(){
     },
     
     getProduct: function(id){
-      return new Promise((resolve,reject)=>{
-        Products.find({"uniqueCode": id}).exec((error,result)=>{          
-          if(error){
-            reject(error)
-          }else{
-            resolve(result);
-          }
-        });  
-      });
+      Products.find({"uniqueCode": id}).exec((error,result)=>{          
+        if(error){
+          return error;
+        }else{
+          return result;
+        }
+      });  
+
     },
         
     createProduct: function(product){
