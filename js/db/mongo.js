@@ -48,13 +48,13 @@ let db = (function(){
     
     updateProduct: function(id, product){
 
-      return Products.find({"uniqueCode": id}).
+      Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
             products[0].name = product.name;
             products[0].description = product.description;
             products[0].priceSince = product.priceSince;
-            products[0].save();            
+            return products[0].save();            
           }
         });
     },
