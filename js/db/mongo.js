@@ -65,10 +65,12 @@ let db = (function(){
     
     deleteProduct: function(id){
 
-      Products.find({"uniqueCode": id}).
+      return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
-            return products[0].remove();
+            products[0].remove((err,deletedProduct)=>{
+              return deletedProduct;
+            });
           }
       });
     },
