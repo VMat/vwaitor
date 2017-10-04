@@ -15,9 +15,7 @@ const productService = (function(){
     },
     
     getProduct: function(id){
-      return new Promise((resolve, reject)=>{
-        storageService.getProduct(id).
-          then(products=>resolve(products))                  
+        return storageService.getProduct(id).then(products=>return products)                  
       })
     },
     
