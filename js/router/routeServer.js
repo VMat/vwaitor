@@ -15,7 +15,7 @@ routeServer.use('/productos', productApi);
 routeServer.use('/cuentas', accountApi);
 // API REST PEDIDOS
 routeServer.use('/pedidos', requestApi);
-// API REST PEDIDOS
+// API REST NOVEDADES
 routeServer.use('/novedades', noveltyApi);
 
 module.exports = routeServer;
