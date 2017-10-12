@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Products = require('../models/product');
+const productInterface = require('./productInterface');
 const Requests = require('../models/request');
 const Accounts = require('../models/account');
 const News     = require('../models/novelty');
@@ -21,59 +21,27 @@ let db = (function(){
     },
     
     getProducts: function(){
-      return Products.find();
+      return productInterface.getAll();
     },
     
     getProduct: function(id){
-      return Products.find({"uniqueCode": id}).exec();
+      return productInterface.getOne(id);
     },
         
     createProduct: function(product){
-      
-      let maxUniqueCode = 0;
-  
-      return Products.find({}).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,products)=>{
-          products.map(function (product) {
-            maxUniqueCode = product.uniqueCode;
-          });
-        }).then(()=>{
-          let newProduct = new Products(product);
-          newProduct.uniqueCode = maxUniqueCode + 1;
-          return newProduct.save();
-        });
+      return productInterface.insert(product);
     },
     
     updateProduct: function(id, product){
-
-      return Products.find({"uniqueCode": id}).
-        exec((err,products)=>{
-          if(products.length > 0){
-            products[0].name = product.name;
-            products[0].description = product.description;
-            products[0].priceSince = product.priceSince;
-            return products[0].save();            
-          }
-        });
+      return productInterface.update(id, product);
     },
     
     deleteProducts: function(){
-      return Products.remove();
+      return productInterface.deleteAll();
     },
     
     deleteProduct: function(id){
-
-      return Products.find({"uniqueCode": id}).
-        exec((err,products)=>{
-          if(products.length > 0){
-            products[0].remove((err,deletedProduct)=>{
-              return deletedProduct;
-            });
-          }
-      });
+      return productInterface.deleteOne(id);
     },
     
     getAccounts: function(){
