@@ -15,8 +15,7 @@ var ProductInterface = (function(){
       return Products.find({"uniqueCode": id}).exec();
     },
         
-    insert: function(product){
-          
+    insert: function(product){        
       return Commons.getNextUniqueCode(Products)
         .then((nextUniqueCode)=>{
           let newProduct = new Products(product);
@@ -26,7 +25,6 @@ var ProductInterface = (function(){
     },
     
     update: function(id, product){
-
       return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
@@ -43,7 +41,6 @@ var ProductInterface = (function(){
     },
     
     deleteOne: function(id){
-
       return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
