@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const productInterface = require('./productInterface');
+const accountInterface = require('./accountInterface');
 const Requests = require('../models/request');
-const Accounts = require('../models/account');
 const News     = require('../models/novelty');
 
 let db = (function(){
