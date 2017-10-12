@@ -42,8 +42,8 @@ var storageService = (function(){
       return db.getAccount(id);
     },
     
-    createAccount: function(req, res){
-      return db.createAccount(req, res);
+    createAccount: function(account){
+      return db.createAccount(account);
     },
     
     patchAccount: function(id, account){
@@ -84,6 +84,34 @@ var storageService = (function(){
     
     deleteRequest: function(id){
       return db.deleteRequest(id);
+    },
+    
+    getNews: function(){
+      return db.getNews();
+    },
+   
+    getNovelty: function(id){
+      return db.getNovelty(id);
+    },
+    
+    createNovelty: function(novelty){
+      return db.createNovelty(novelty);
+    },
+    
+    patchNovelty: function(id, novelty){
+      return db.patchNovelty(id, novelty);
+    },
+    
+    updateNovelty: function(id, novelty){
+      return db.updateNovelty(id, novelty);
+    },
+    
+    deleteNews: function(){
+      return db.deleteNews();
+    },
+    
+    deleteNovelty: function(id){
+      return db.deleteNovelty(id);
     }
     
   };
