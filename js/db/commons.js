@@ -5,7 +5,18 @@ let Commons = (function(){
   oCommons.prototype = {
     
     getNextUniqueCode: function(Collection){
-    
+      return Collection.find({}).
+        limit(1).
+        sort('-uniqueCode').
+        select('uniqueCode').
+        exec((err,doc)=>{
+          if(doc.length>0){
+            return doc[0].uniqueCode
+          }
+          else{
+            return 1;
+          }
+        });
     }
   
   };
