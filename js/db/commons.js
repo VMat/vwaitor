@@ -11,7 +11,7 @@ let Commons = (function(){
         select('uniqueCode').
         exec((err,doc)=>{
           if(doc.length>0){
-            return doc[0].uniqueCode
+            return doc[0].uniqueCode + 1
           }
           else{
             return 1;
