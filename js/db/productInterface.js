@@ -6,15 +6,15 @@ var ProductInterface = (function(){
   
   oProductInterface.prototype = {
     
-    getProducts: function(){
+    getAll: function(){
       return Products.find();
     },
     
-    getProduct: function(id){
+    getOne: function(id){
       return Products.find({"uniqueCode": id}).exec();
     },
         
-    createProduct: function(product){
+    insert: function(product){
       
       let maxUniqueCode = 0;
   
@@ -33,7 +33,7 @@ var ProductInterface = (function(){
         });
     },
     
-    updateProduct: function(id, product){
+    update: function(id, product){
 
       return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
@@ -46,11 +46,11 @@ var ProductInterface = (function(){
         });
     },
     
-    deleteProducts: function(){
+    deleteAll: function(){
       return Products.remove();
     },
     
-    deleteProduct: function(id){
+    deleteOne: function(id){
 
       return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
