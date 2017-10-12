@@ -6,6 +6,6 @@ noveltySchema = new mongoose.Schema({
   description: String
 });
 
-Novelty = mongoose.model('admin2', noveltySchema, 'News');
+Novelty = mongoose.model('novelty', noveltySchema, 'News');
 
 module.exports = Novelty;
