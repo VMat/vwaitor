@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const productInterface = require('./productInterface');
 const accountInterface = require('./accountInterface');
 const requestInterface = require('./requestInterface');
-const News     = require('../models/novelty');
+const noveltyInterface = require('./noveltyInterface');
 
 let db = (function(){
 
@@ -93,72 +93,27 @@ let db = (function(){
     },
     
     getNews: function(){
-      return News.find();
+      return noveltyInterface.getAll();
     },
         
     getNovelty: function(id){
-      return News.find({"uniqueCode": id});
+      return noveltyInterface.getAll(id);
     },
     
     createNovelty: function(novelty){
-
-      let maxUniqueCode = 0;
-  
-      return News.find({}).
-        //where('name.last').equals('Ghost').
-        //where('age').gt(17).lt(66).
-        //where('likes').in(['vaporizing', 'talking']).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,news)=>{
-          news.map(function (novelty) {
-              maxUniqueCode = novelty.uniqueCode;
-          });
-        }).then(()=>{
-          let newNovelty = new News(novelty);
-          newNovelty.uniqueCode = maxUniqueCode + 1;
-          return newNovelty.save();
-        });
-    },
-    
-    patchNovelty: function(id, novelty){
-      let newNovelty = new News(novelty);
-
-      return News.find({"uniqueCode": id}).
-        exec((err,news)=>{
-          if(news.length > 0){
-            news[0].img = newNovelty.img;
-            news[0].description = newNovelty.description;
-            return news[0].save();
-          }
-        });
+      return noveltyInterface.insert(novelty);
     },
     
     updateNovelty: function(id, novelty){
-      let newNovelty = new News(novelty);
-
-      return News.find({"uniqueCode": id}).
-        exec((err,news)=>{
-          if(news.length > 0){
-            news[0].img = novelty.img;
-            news[0].description = novelty.description;
-            return news[0].save();
-          }
-        });
+      return noveltyInterface.update(id,novelty);
     },
     
     deleteNews: function(){
-      return News.remove();
+      return noveltyInterface.deleteAll();
     },
     
     deleteNovelty: function(id){
-      return News.find({"uniqueCode": id}).
-        exec((err,news)=>{        
-          if(news.length > 0){
-            return news[0].remove();
-          }
-        });
+      return noveltyInterface.deleteOne(id);
     }
     
   };
