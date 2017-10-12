@@ -97,7 +97,7 @@ let db = (function(){
     },
         
     getNovelty: function(id){
-      return noveltyInterface.getAll(id);
+      return noveltyInterface.getOne(id);
     },
     
     createNovelty: function(novelty){
