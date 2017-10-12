@@ -70,5 +70,5 @@ var ProductInterface = (function(){
 
 oProductInterface = new ProductInterface();
 
-module.export = oProductInterface;
+module.exports = oProductInterface;
 
