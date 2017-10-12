@@ -1,4 +1,4 @@
-const Accounts = import('../models/accountSquema');
+const Accounts = require('../models/account');
 
 let AccountInterface = (function(){
 
