@@ -1,1 +1,46 @@
+const router = require('express').Router();
+const noveltyService = require('../services/noveltyService');
 
+router.get('/', function(req, res){
+  noveltyService.getNews()
+    .then(news=>{res.status(200).json(news)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.get('/:id', function(req, res){
+  noveltyService.getNovelty(req.params.id)
+    .then(news=>{res.status(200).json(news)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.post('/', function (req, res){
+  noveltyService.createNovelty(req.body)
+    .then(novelty=>{res.status(200).json(novelty)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.put('/:id', function (req, res){
+  noveltyService.updateNovelty(req.params.id, req.body)
+    .then(novelty=>{res.status(200).json(novelty)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.patch('/:id', function (req, res){
+  noveltyService.patchNovelty(req.params.id, req.body)
+    .then(novelty=>{res.status(200).json(novelty)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.delete('/', function (req, res){
+  noveltyService.deleteNews()
+    .then(news=>{res.status(200).json(news)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+router.delete('/:id', function (req, res){
+  noveltyService.deleteNovelty(req.params.id)
+    .then(novelty=>{res.status(200).json(novelty)})
+    .catch(error=>{res.status(500).send(err)})
+});
+
+module.exports = router;
