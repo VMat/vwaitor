@@ -1,4 +1,5 @@
 const Products = require('../models/product');
+const Commons = require('./commons');
 
 var ProductInterface = (function(){
   
@@ -15,20 +16,11 @@ var ProductInterface = (function(){
     },
         
     insert: function(product){
-      
-      let maxUniqueCode = 0;
-  
-      return Products.find({}).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,products)=>{
-          products.map(function (product) {
-            maxUniqueCode = product.uniqueCode;
-          });
-        }).then(()=>{
+          
+      return Commons.getNextUniqueCode(Products)
+        .then((nextUniqueCode)=>{
           let newProduct = new Products(product);
-          newProduct.uniqueCode = maxUniqueCode + 1;
+          newProduct.uniqueCode = nextUniqueCode;
           return newProduct.save();
         });
     },
