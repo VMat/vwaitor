@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const Products = require('../models/product');
 const Requests = require('../models/request');
 const Accounts = require('../models/account');
+const News     = require('../models/novelty');
 
 let db = (function(){
 
@@ -214,7 +215,76 @@ let db = (function(){
             return requests[0].remove();
           }
       });
-    }
+    },
+    
+    getNews: function(){
+      return News.find();
+    },
+        
+    getNovelty: function(id){
+      return News.find({"uniqueCode": id});
+    },
+    
+    createNovelty: function(novelty){
+
+      let maxUniqueCode = 0;
+  
+      return News.find({}).
+        //where('name.last').equals('Ghost').
+        //where('age').gt(17).lt(66).
+        //where('likes').in(['vaporizing', 'talking']).
+        limit(1).
+        sort('-uniqueCode').
+        select('uniqueCode').
+        exec((err,news)=>{
+          news.map(function (novelty) {
+              maxUniqueCode = novelty.uniqueCode;
+          });
+        }).then(()=>{
+          let newNovelty = new News(novelty);
+          newNovelty.uniqueCode = maxUniqueCode + 1;
+          return newNovelty.save();
+        });
+    },
+    
+    patchNovelty: function(id, novelty){
+      let newNovelty = new News(novelty);
+
+      return News.find({"uniqueCode": id}).
+        exec((err,news)=>{
+          if(news.length > 0){
+            news[0].img = newNovelty.img;
+            news[0].description = newNovelty.description;
+            return news[0].save();
+          }
+        });
+    },
+    
+    updateNovelty: function(id, novelty){
+      let newNovelty = new News(novelty);
+
+      return News.find({"uniqueCode": id}).
+        exec((err,news)=>{
+          if(news.length > 0){
+            news[0].img = novelty.img;
+            news[0].description = novelty.description;
+            return news[0].save();
+          }
+        });
+    },
+    
+    deleteNews: function(){
+      return News.remove();
+    },
+    
+    deleteNovelty: function(id){
+      return News.find({"uniqueCode": id}).
+        exec((err,news)=>{        
+          if(news.length > 0){
+            return news[0].remove();
+          }
+        });
+    },
     
   };
   
