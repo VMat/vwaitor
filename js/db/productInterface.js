@@ -1,3 +1,4 @@
+const Products = require('../models/product');
 
 var ProductInterface = (function(){
   
