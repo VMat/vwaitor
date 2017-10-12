@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const productInterface = require('./productInterface');
 const accountInterface = require('./accountInterface');
-const Requests = require('../models/request');
+const requestInterface = require('./requestInterface');
 const News     = require('../models/novelty');
 
 let db = (function(){
@@ -69,65 +69,27 @@ let db = (function(){
     },   
     
     getRequests: function(){
-      return Requests.find();
+      return requestInterface.getAll();
     },
     
     getRequest: function(id){
-      return Requests.find({"uniqueCode": id});
+      return requestInterface.getOne(id);
     },
     
     createRequest: function(request){
-    
-      let maxUniqueCode = 0;
-  
-      return Requests.find({}).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,requests)=>{
-          requests.map((request)=>{
-              maxUniqueCode = request.uniqueCode;
-          });
-        }).then(()=>{
-          let newRequest = new Requests(request);
-          newRequest.uniqueCode = maxUniqueCode + 1;
-          newRequest.save((err)=>{
-            Accounts.find((err, accounts)=>{
-                let newAccount = null;
-                if(accounts.length>0){
-                    newAccount = accounts[0].requests.push(newRequest);
-                }
-                else{
-                    newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
-                }
-                return newAccount.save();
-            })
-          });
-        });
+      return requestInterface.insert(request);
     },
     
     updateRequest: function(id, request){
-
-      return Requests.find({"uniqueCode": id}).
-        exec((err,requests)=>{
-          if(requests.length > 0){
-            requests[0] = request;
-            return requests[0].save();
-          }
-        });
+      return requestInterface.update(id,request);
     },
     
     deleteRequests: function(){
-      return Requests.remove();
+      return requestInterface.deleteAll();
     },
     
     deleteRequest: function(id){
-      return Requests.find({"uniqueCode": id}).
-        exec((err,requests)=>{
-          if(requests.length > 0){
-            return requests[0].remove();
-          }
-      });
+      return requestInterface.deleteOne();
     },
     
     getNews: function(){
@@ -197,7 +159,7 @@ let db = (function(){
             return news[0].remove();
           }
         });
-    },
+    }
     
   };
   
