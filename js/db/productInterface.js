@@ -19,9 +19,7 @@ var ProductInterface = (function(){
       return Commons.getNextUniqueCode(Products,(nextUniqueCode)=>{
         let newProduct = new Products(product);
         newProduct.uniqueCode = nextUniqueCode;
-        newProduct.save().then((productSaved)=>{
-          return productSaved;
-        });
+        return newProduct.save();
       })
     },
     
