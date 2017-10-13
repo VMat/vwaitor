@@ -11,10 +11,10 @@ let Commons = (function(){
         select('uniqueCode').
         exec((err,doc)=>{
           if(doc.length>0){
-            fn(doc[0].uniqueCode + 1)
+            return fn(doc[0].uniqueCode + 1)
           }
           else{
-            fn(1);
+            return fn(1);
           }
         });
     }
