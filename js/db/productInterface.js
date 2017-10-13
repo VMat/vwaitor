@@ -15,13 +15,12 @@ var ProductInterface = (function(){
       return Products.find({"uniqueCode": id}).exec();
     },
         
-    insert: function(product){        
-      return Commons.getNextUniqueCode(Products)
-        .then((nextUniqueCode)=>{
+    insert: function(product){
+      return Commons.getNextUniqueCode(Products,(nextUniqueCode)=>{
           let newProduct = new Products(product);
           newProduct.uniqueCode = nextUniqueCode;
           return newProduct.save();
-        });
+      })
     },
     
     update: function(id, product){
