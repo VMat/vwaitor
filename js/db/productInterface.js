@@ -16,10 +16,10 @@ var ProductInterface = (function(){
     },
         
     insert: function(product){
-      return Commons.getNextUniqueCode(Products,(nextUniqueCode)=>{
-          let newProduct = new Products(product);
-          newProduct.uniqueCode = nextUniqueCode;
-          return newProduct.save();
+      Commons.getNextUniqueCode(Products,(nextUniqueCode)=>{
+        let newProduct = new Products(product);
+        newProduct.uniqueCode = nextUniqueCode;
+        return newProduct.save();
       })
     },
     
