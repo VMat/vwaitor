@@ -1,4 +1,5 @@
 const Accounts = require('../models/account');
+const Commons = require('./commons');
 
 let AccountInterface = (function(){
 
