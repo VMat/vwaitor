@@ -14,26 +14,12 @@ let NoveltyInterface = (function(){
       return News.find({"uniqueCode": id});
     },
     
-    insert: function(novelty){
-
-      let maxUniqueCode = 0;
-  
-      return News.find({}).
-        //where('name.last').equals('Ghost').
-        //where('age').gt(17).lt(66).
-        //where('likes').in(['vaporizing', 'talking']).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,news)=>{
-          news.map(function (novelty) {
-              maxUniqueCode = novelty.uniqueCode;
-          });
-        }).then(()=>{
-          let newNovelty = new News(novelty);
-          newNovelty.uniqueCode = maxUniqueCode + 1;
-          return newNovelty.save();
-        });
+    insert: function(novelty){     
+      return Commons.getNextUniqueCode(News,(nextUniqueCode)=>{
+        let newNovelty = new News(novelty);
+        newNovelty.uniqueCode = nextUniqueCode;
+        return newNovelty.save();
+      });
     },
     
     patch: function(id, novelty){
