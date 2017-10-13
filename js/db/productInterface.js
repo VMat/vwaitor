@@ -25,7 +25,7 @@ var ProductInterface = (function(){
     
     update: function(id, product){
       
-      findOneAndUpdate({'uniqueCode':id}, product, {upsert:false}, (err, updatedProduct)=>{updatedProduct});
+      return Products.findOneAndUpdate({'uniqueCode':id}, product, {upsert:false}, (err, updatedProduct)=>{updatedProduct});
       
       /*return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
