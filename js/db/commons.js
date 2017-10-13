@@ -19,7 +19,7 @@ let Commons = (function(){
           else{
             nextUniqueCode = 1;
           }
-        }).then(()=>{return fn(nextUniqueCode)});
+        }).then(()=>{fn(nextUniqueCode)});
     }
   
   };
