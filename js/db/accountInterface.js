@@ -15,25 +15,11 @@ let AccountInterface = (function(){
     },
     
     insert: function(account){
-
-      let maxUniqueCode = 0;
-  
-      return Accounts.find({}).
-        //where('name.last').equals('Ghost').
-        //where('age').gt(17).lt(66).
-        //where('likes').in(['vaporizing', 'talking']).
-        limit(1).
-        sort('-uniqueCode').
-        select('uniqueCode').
-        exec((err,accounts)=>{
-          accounts.map(function (account) {
-              maxUniqueCode = account.uniqueCode;
-          });
-        }).then(()=>{
-          let newAccount = new Accounts(account);
-          newAccount.uniqueCode = maxUniqueCode + 1;
-          return newAccount.save();
-        });
+      return Commons.getNextUniqueCode(Accounts,(nextUniqueCode)=>{
+        let newAccount = new Accounts(account);
+        newAccount.uniqueCode = nextUniqueCode;
+        return newAccount.save();
+      });
     },
     
     patch: function(id, account){
