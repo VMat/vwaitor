@@ -5,10 +5,11 @@ let Commons = (function(){
   oCommons.prototype = {
     
     getNextUniqueCode: function(Collection,fn){
-      return Collection.find({}).
+      let query = Collection.find({}).
         limit(1).
         sort('-uniqueCode').
-        select('uniqueCode').
+        select('uniqueCode');
+      return query.
         exec((err,doc)=>{
           if(doc.length>0){
             return fn(doc[0].uniqueCode + 1)
