@@ -5,7 +5,7 @@ let Commons = (function(){
   oCommons.prototype = {
     
     getNextUniqueCode: function(Collection,fn){
-      Collection.find({}).
+      return Collection.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
