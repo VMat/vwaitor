@@ -4,17 +4,17 @@ let Commons = (function(){
   
   oCommons.prototype = {
     
-    getNextUniqueCode: function(Collection){
+    getNextUniqueCode: function(Collection,fn){
       return Collection.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
         exec((err,doc)=>{
           if(doc.length>0){
-            return doc[0].uniqueCode + 1
+            fn(doc[0].uniqueCode + 1)
           }
           else{
-            return 1;
+            fn(1);
           }
         });
     }
