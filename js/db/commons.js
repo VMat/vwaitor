@@ -8,7 +8,7 @@ let Commons = (function(){
       
       let nextUniqueCode = null;
       
-      Collection.find({}).
+      return Collection.find({}).
         limit(1).
         sort('-uniqueCode').
         select('uniqueCode').
@@ -19,7 +19,7 @@ let Commons = (function(){
           else{
             nextUniqueCode = 1;
           }
-        }).then(()=>{fn(nextUniqueCode)});
+        }).then(()=>{return fn(nextUniqueCode)});
     }
   
   };
