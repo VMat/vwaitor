@@ -1,5 +1,6 @@
 const Requests = require('../models/request');
 const Accounts = require('../models/account');
+const Commons  = require('./commons');
 
 let RequestInterface = (function(){
 
@@ -18,19 +19,19 @@ let RequestInterface = (function(){
     insert: function(request){
       return Commons.getNextUniqueCode(Requests,(nextUniqueCode)=>{
         let newRequest = new Requests(request);
-            newRequest.uniqueCode = nextUniqueCode;
-            newRequest.save((err)=>{
-              Accounts.find((err, accounts)=>{
-                  let newAccount = null;
-                  if(accounts.length>0){
-                      newAccount = accounts[0].requests.push(newRequest);
-                  }
-                  else{
-                      newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
-                  }
-                  return newAccount.save();
-              })
-            });
+        newRequest.uniqueCode = nextUniqueCode;
+        newRequest.save((err)=>{
+          Accounts.find((err, accounts)=>{
+            let newAccount = null;
+            if(accounts.length>0){
+              newAccount = accounts[0].requests.push(newRequest);
+            }
+            else{
+              newAccount = new Accounts({uniqueCode: 1, requests: [newRequest]});
+            }
+            return newAccount.save();
+          })
+        });
       }); 
     },
     
