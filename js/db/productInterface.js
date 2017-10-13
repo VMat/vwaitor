@@ -24,7 +24,10 @@ var ProductInterface = (function(){
     },
     
     update: function(id, product){
-      return Products.find({"uniqueCode": id}).
+      
+      findOneAndUpdate({'uniqueCode':id}, product, {upsert:false}, (err, updatedProduct)=>{updatedProduct});
+      
+      /*return Products.find({"uniqueCode": id}).
         exec((err,products)=>{
           if(products.length > 0){
             products[0].name = product.name;
@@ -32,7 +35,7 @@ var ProductInterface = (function(){
             products[0].priceSince = product.priceSince;
             return products[0].save();            
           }
-        });
+        });*/
     },
     
     deleteAll: function(){
