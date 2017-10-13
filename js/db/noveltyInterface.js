@@ -1,4 +1,5 @@
 const News = require('../models/novelty');
+const Commons = require('./commons');
 
 let NoveltyInterface = (function(){
 
